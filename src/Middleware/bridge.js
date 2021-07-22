@@ -1,4 +1,4 @@
-import { data } from 'jquery';
+// import { data } from 'jquery';
 import { ACCESS_POINT } from '../config';
 
 import http from "./http";
@@ -22,7 +22,7 @@ const getFreedom = async (
   value.groupby = groupby;
   value.orderby = orderby;
   const result = await http.put(
-    ACCESS_POINT + `/cmsContent/getFullFreedom/getFreedom`,
+    ACCESS_POINT + `/admin/getFullFreedom/getFreedom`,
     value
   );
   //console.log(result)
@@ -39,7 +39,7 @@ const getFreedom = async (
 
 const updateMaster = async (tableName, id, categoryArray, column = "id") => {
   const result = await http.put(
-    ACCESS_POINT + `/cmsContent/master/${tableName}/${column}`,
+    ACCESS_POINT + `/admin/master/${tableName}/${column}`,
     { id: id, categoryArray }
   );
   return result;
@@ -48,7 +48,7 @@ const updateMaster = async (tableName, id, categoryArray, column = "id") => {
 
 const deleteMaster = async (tableName, id) => {
   const result = await http.delete(
-    ACCESS_POINT + `/cmsContent/master/${tableName}/${id}`
+    ACCESS_POINT + `/admin/master/${tableName}/${id}`
   );
   return result;
 };
@@ -64,7 +64,15 @@ const LoginAdmin = async(FormData)=>{
 }
 
 
-
+const AddUser = async(data) =>{
+   
+  const result = await http.post(ACCESS_POINT + `/admin/adduser`,data,{
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return result;
+}
 
 
 
@@ -73,5 +81,6 @@ export default {
     getFreedom,
     updateMaster,
     deleteMaster,
-    LoginAdmin
+    LoginAdmin,
+    AddUser
 }

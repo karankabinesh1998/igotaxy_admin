@@ -28,7 +28,7 @@ class Addusers extends React.Component
                 column: [
                     {
                       Header: "Name",
-                      accessor: "name"
+                      accessor: "username"
                     },
                     {
                       Header: "Mobile",
@@ -90,7 +90,7 @@ class Addusers extends React.Component
     Status = (d)=>{
         let value = d;
 
-        if(d.original.status === "active"){
+        if(d.original.status === 1){
          
             return (
                 <center>
@@ -131,14 +131,14 @@ class Addusers extends React.Component
  
        let arr = {};
 
-       if(value === "active"){
+       if(value === 1){
         
        
-        arr.status = "inactive"
+        arr.status = 0
 
        }else{
 
-        arr.status = "active"
+        arr.status = 1
        }
 
        //let 
@@ -194,6 +194,7 @@ class Addusers extends React.Component
             email_id:value.email_id,
             password:value.password,
             EditId:value.id,
+            filename:value.profile_dp,
             Index : e.index
            
           })
@@ -376,7 +377,7 @@ handleChange = async(e)=>{
 
       const formData=new FormData();
       formData.append("username",username);
-      formData.append("name",username);
+      // formData.append("name",username);
       formData.append("mobile",mobile);
       formData.append("email_id",email_id);
       formData.append("password",password);
@@ -388,7 +389,7 @@ handleChange = async(e)=>{
 
     try{
 
-        const submit = await Bridge.AddUser("tbl_user_web",formData);
+        const submit = await Bridge.AddUser(formData);
         if(submit.data == false){
           this.setState({
            erroremail :"Email Id already Exist"
@@ -421,7 +422,8 @@ handleChange = async(e)=>{
               alertVisible:true,
               color:"success",
               textALert:"Successfully added Customer",
-              Data : newData
+              Data : newData,
+              filename:""
    
           })
           setTimeout(() => this.setState({ alertVisible: false ,textALert:""}), 3000);
