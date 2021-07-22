@@ -382,9 +382,9 @@ handleChange = async(e)=>{
       formData.append("password",password);
       formData.append("userType",4);
       formData.append("login_status",0);
-      formData.append("status","active");
+      formData.append("status",1);
       // formData.append("profile_pic",this.state.filename)
-      formData.append("profile_pic",this.state.file);
+      formData.append("profile_dp",this.state.file);
 
     try{
 
