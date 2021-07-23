@@ -1,16 +1,16 @@
 import React from 'react';
-import Bridge from '../../../Middleware/bridge';
+import Bridge from '../../Middleware/bridge';
 import { Alert } from "reactstrap";
-import {ACCESS_POINT} from '../../../config/index';
-import http from "../../../Middleware/http";
-import Datatable from "../../../Component/Datatable/Datatable";
+import {ACCESS_POINT} from '../../config/index';
+import http from "../../Middleware/http";
+import Datatable from "../../Component/Datatable/Datatable";
 import swal from 'sweetalert';
 import '../style1.css';
-import '../../../Component/loader.css'
-import ModelWindow from "../../../Component/Model";
+// import '../../../Component/loader.css'
+import ModelWindow from "../../Component/Model";
 import Adddocument from '../ModelPages/Adddocument';
 import ViewDocument from '../ModelPages/Viewdocument'
-import Progress from '../../../Component/Progress';
+import Progress from '../../Component/Progress';
 
 
 
@@ -39,7 +39,7 @@ class AddVendar extends React.Component
                 column: [
                     {
                       Header: "Name",
-                      accessor: "name"
+                      accessor: "username"
                     },
                     {
                       Header: "Mobile",
@@ -362,14 +362,14 @@ deletion =async(value)=>{
  
        let arr = {};
 
-       if(value === "active"){
+       if(value === 1){
         
        
-        arr.status = "inactive"
+        arr.status = 0
 
        }else{
 
-        arr.status = "active"
+        arr.status = 1
        }
 
        //let 
@@ -598,20 +598,20 @@ deletion =async(value)=>{
     
           const formData=new FormData();
           formData.append("username",username);
-          formData.append("name",username);
+          // formData.append("name",username);
           formData.append("mobile",mobile);
           formData.append("email_id",email_id);
           formData.append("password",password);
           formData.append("customerid",Userdetails[0].id);
           formData.append("userType",3);
           formData.append("login_status",0);
-          formData.append("status","active");
-          formData.append("profile_pic",this.state.filename)
+          formData.append("status",1);
+          formData.append("profile_dp",this.state.filename)
           formData.append("file",this.state.file);
     
         try{
     
-            const submit = await Bridge.AddUser("tbl_user_web",formData);
+            const submit = await Bridge.AddUser(formData);
             if(submit.data == false){
               this.setState({
                erroremail :"Email Id already Exist"
@@ -791,7 +791,7 @@ deletion =async(value)=>{
             if(docdata.userid == null){
 
             let { data } = await http.post(
-              ACCESS_POINT + `/cmsContent/VendarDocument`,
+              ACCESS_POINT + `/admin/VendarDocument`,
               formData,
               {
                 headers: {

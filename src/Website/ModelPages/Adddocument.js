@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../style1.css';
-import Progress from '../../../Component/Progress';
+import Progress from '../../Component/Progress';
 
 const Adddocument = ({ data , handleChangeFile,AddDoucment,ButtonName1=true,uploadPercentage, docummentfiles, Filename }) => {
   //console.log(docummentfiles[0]);

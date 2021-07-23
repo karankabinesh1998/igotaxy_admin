@@ -17,6 +17,7 @@ import LoginPage from '../Website/Login';
 /////MAsters
 
 import Addusers from '../Website/Masters/Addusers';
+import AddVendar from '../Website/Masters/AddVendar';
 
 export default function Routes() {
     return (
@@ -69,6 +70,25 @@ export default function Routes() {
             <SideNav {...props}/>
             <div className="app-body">
              <Addusers {...props}/>
+            </div>
+          <Footer {...props}/>
+          </div>
+          </div>
+          </React.Fragment>
+        )}
+      />
+
+<Route
+        exact
+        path={'/vendar'}
+        render={(props) => (
+          <React.Fragment>
+             <div id="app">
+             <div class="main-wrapper main-wrapper-1">
+            <Header {...props}/>
+            <SideNav {...props}/>
+            <div className="app-body">
+             <AddVendar {...props}/>
             </div>
           <Footer {...props}/>
           </div>

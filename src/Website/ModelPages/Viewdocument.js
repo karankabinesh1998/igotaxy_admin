@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../style1.css';
-import {ACCESS_POINT } from '../../../config/index';
+import {ACCESS_POINT } from '../../config/index';
 //import Progress from '../../../Component/Progress';
 
 const ViewDocument = ({ data ,ViewDocumentstate, handleChangeFile,AddDoucment,ButtonName1=true,uploadPercentage, docummentfiles, Filename }) => {
