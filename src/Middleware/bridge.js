@@ -58,6 +58,7 @@ const LoginAdmin = async(FormData)=>{
   const result = await http.post(ACCESS_POINT + `/admin/login`,FormData,{
     headers:{
       'Content-Type': 'multipart/form-data',
+      'Access-Control-Allow-Origin':'www.igotaxy.in'
     }
   })
   return result;

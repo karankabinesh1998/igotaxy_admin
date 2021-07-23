@@ -95,8 +95,8 @@ class LoginPage extends Component {
              console.log(result);
                if(result.data.length){
                   // console.log(result);
-                   localStorage.setItem("Userdetails", JSON.stringify(result.data) );
-                   window.location.href='/dashboard'; 
+                  //  localStorage.setItem("Userdetails", JSON.stringify(result.data) );
+                  //  window.location.href='/dashboard'; 
                }else if(result.data == false){
                   this.setState({
                    alertVisible:true,
