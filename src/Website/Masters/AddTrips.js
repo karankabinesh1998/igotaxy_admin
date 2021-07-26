@@ -40,7 +40,20 @@ class AddTrips extends React.Component
                 pickupDate:"",
                 dropDate:"",
                 minTime : this.calculateMinTime(new Date()),
-                minTime1 : this.calculateMinTime1(new Date())
+                minTime1 : this.calculateMinTime1(new Date()),
+                cabTypeOption:[{value:1,label:"Sedan"} , { value:2 , label:"Suv"},{value:3,label:"Innova"}],
+                selectedcabTypeOption:{},
+                errorcabTypeOption:"",
+                trip_kms:"",
+                errortrip_kms:"",
+                trip_charges:"",
+                errortrip_charges:"",
+                ButtonName1:true,
+                address:"",
+                erroraddress:"",
+                errorpickupDate:"",
+                errordropDate:"",
+                Userdetails : []
             }
 
         }
@@ -50,6 +63,13 @@ class AddTrips extends React.Component
 
     async componentDidMount(){
         try {
+
+
+                let data = JSON.parse(localStorage.getItem("Userdetails")) ? JSON.parse(localStorage.getItem("Userdetails")) : null;
+                if(data !== null){
+                 console.log(data)
+                this.setState({Userdetails:data})
+                }
 
             let CustomerDetails = await Bridge.getFreedom(
                 `*`,
@@ -61,10 +81,10 @@ class AddTrips extends React.Component
             if(CustomerDetails.data.length){
 
                 // console.log(CustomerDetails);
-                let arr={}
+                
 
                 let wait = await CustomerDetails.data.map((ival,i)=>{
-
+                    let arr={}
                     arr.value = ival.id;
                     arr.label = `${ival.username}-${ival.mobile}-${ival.email_id}`
 
@@ -100,7 +120,7 @@ class AddTrips extends React.Component
     }
 
     handleSwitch=async(checked)=> {
-
+        //  console.log(checked);
         this.setState({
             checkstatus : checked,
             selectedcustomer:{}
@@ -141,6 +161,13 @@ class AddTrips extends React.Component
         })
     }
 
+    HandleselectedcabTypeOption=async(e)=>{
+        console.log(e);
+        this.setState({
+            selectedcabTypeOption:e
+        })
+    }
+
   
   
 
@@ -178,9 +205,234 @@ handleDateChange = date => {
     });
 }
 
+ScroolTop=async()=>{
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+}
+
+submit=async()=>{
+    const { username,mobile,alternate_mobile,trip_kms,trip_charges,email_id,address,selectedcustomer,selectedDropLocationOption,selectedPickupLocationOption,
+    selectedTripTypeOption,selectedcabTypeOption,checkstatus,pickupDate,dropDate,Userdetails} = this.state;
+    let mailcheck = await this.ValidateEmail(email_id);
+
+    // if(this.state.checkstatus == false ){
+    //     // console.log(Object.keys(selectedcabTypeOption).length);
+    //     if(!username){
+    //         this.setState({
+    //             errorusername:"enter the username"
+    //         })
+    //         this.ScroolTop()
+    //         return false
+            
+    //     }else if(!mobile){
+    //         this.setState({
+    //             errormobile:"enter the mobile",
+    //             errorusername:""
+    //         })
+    //         this.ScroolTop()
+    //         return false
+    //     }else if(!email_id){
+    //         this.setState({
+    //             errormobile:"",
+    //             erroremail_id:"Enter the email id"
+    //         })
+    //         this.ScroolTop()
+    //     }else if(mailcheck==0){
+    //         this.setState({erroremail_id:"Enter the valid email id"})
+    //         this.ScroolTop()
+    //         return false
+    //       }
+    //       else if(!address){
+    //         this.setState({
+    //             erroremail_id:"",
+    //             erroraddress:"Enter the address"
+    //         })
+    //         this.ScroolTop()
+    //     }else if(Object.keys(selectedPickupLocationOption).length == 0){
+
+    //         this.setState({
+    //             errorPickupLocationOption:"select the pick up location"
+    //         })
+    
+    //         this.ScroolTop()
+    //         return false
+    
+    //     }else if(Object.keys(selectedDropLocationOption).length == 0){
+    //         this.setState({
+    //             errorPickupLocationOption:"",
+    //             errorDropLocationOption:"select the drop location"
+    //         })
+    
+    //         this.ScroolTop()
+    //         return false
+    //     }else if(!pickupDate){
+    //         this.setState({
+    //             errorpickupDate:"select the pick up date",
+    //             errorDropLocationOption:""
+    //         })
+    //         this.ScroolTop()
+    //         return false
+    //     }else if(Object.keys(selectedcabTypeOption.length == 0)){
+    //         this.setState({
+    //             errorpickupDate:"",
+    //             errordropDate:"",
+    //             errorcabTypeOption:"select the cab type"
+    //         })
+    //         this.ScroolTop()
+    //         // return false
+    //     }else if(!trip_kms){
+    //         this.setState({
+    //             errortrip_kms:"enter the trip kms",
+    //             errorcabTypeOption:""
+    //         })
+    //         this.ScroolTop()
+    //             return false
+    //     }else if(!trip_charges){
+    //         this.setState({
+    //             errortrip_kms:"",
+    //             errortrip_charges:"enter the trip charges"
+    //         })
+    //         this.ScroolTop()
+    //             return false
+    //     }
+
+
+    // }else{
+
+    //     if(Object.keys(selectedcustomer).length == 0){
+    //         this.setState({
+    //             errorselectedcustomer:"select the customer"
+    //         })
+
+    //         this.ScroolTop()
+    //         return false
+    //     }else if(Object.keys(selectedPickupLocationOption).length == 0){
+
+    //         this.setState({
+    //             errorselectedcustomer:"",
+    //             errorPickupLocationOption:"select the pick up location"
+    //         })
+    
+    //         this.ScroolTop()
+    //         return false
+    
+    //     }else if(Object.keys(selectedDropLocationOption).length == 0){
+    //         this.setState({
+    //             errorPickupLocationOption:"",
+    //             errorDropLocationOption:"select the drop location"
+    //         })
+    
+    //         this.ScroolTop()
+    //         return false
+    //     }else if(!pickupDate){
+    //         this.setState({
+    //             errorpickupDate:"select the pick up date",
+    //             errorDropLocationOption:""
+    //         })
+    //         this.ScroolTop()
+    //         return false
+    //     }else if(Object.keys(selectedcabTypeOption.length==0)){
+    //         // console.log(Object.keys(selectedcabTypeOption.length));
+    //         this.setState({
+    //             errorpickupDate:"",
+    //             errordropDate:"",
+    //             errorcabTypeOption:"select the cab type"
+    //         })
+    //         this.ScroolTop()
+    //             return false
+    //     }else if(!trip_kms){
+    //         this.setState({
+    //             errortrip_kms:"enter the trip kms",
+    //             errorcabTypeOption:""
+    //         })
+    //         this.ScroolTop()
+    //             return false
+    //     }else if(!trip_charges){
+    //         this.setState({
+    //             errortrip_kms:"",
+    //             errortrip_charges:"enter the trip charges"
+    //         })
+    //         this.ScroolTop()
+    //             return false
+    //     }
+
+    // }
+
+
+    // else if(selectedTripTypeOption.value == 2){
+    //     console.log(selectedTripTypeOption);
+    //     if(!dropDate){
+    //         this.setState({
+    //             errorpickupDate:"",
+    //             errordropDate:"select the drop date"
+    //         })
+    //         this.ScroolTop()
+    //         return false
+    //     }
+    // }
+
+
+   
+
+    const formData=new FormData();
+    let newcustomer = 0;
+    if(Object.keys(selectedcustomer).length==0){
+        newcustomer = 1
+        formData.append("customer",JSON.stringify([{username:username,mobile:mobile,alternate_mobile:alternate_mobile,email_id:email_id,address:address}]));
+    }else{
+        newcustomer = 0
+        formData.append("customer_id",selectedcustomer.value ? selectedcustomer.value : null )
+    }
+    
+    
+    formData.append("trip_type",selectedTripTypeOption.label)
+    formData.append("pickup_location",selectedPickupLocationOption.value ? selectedPickupLocationOption.value : null )
+    formData.append("drop_location",selectedDropLocationOption.value ? selectedDropLocationOption.value : null )
+    formData.append("pickup_date",moment(pickupDate).format('YYYY-MM-DD hh:mm:ss') )
+    formData.append("drop_date",moment(dropDate).format('YYYY-MM-DD hh:mm:ss'))
+    formData.append("cab_type",selectedcabTypeOption.label ? selectedcabTypeOption.label : null )
+    formData.append("trip_kms",trip_kms)
+    formData.append("trip_charges",trip_charges)
+    formData.append("extra_charge",selectedcabTypeOption.value ? selectedcabTypeOption.value : null)
+    formData.append("admin_id",Userdetails[0].id)
+    formData.append("trip_status","active")
+
+
+
+    console.log([...formData]); 
+    try {
+
+        const result = await Bridge.Addtrips(newcustomer,formData)
+
+        if(result){
+            console.log(result);
+            this.setState({
+
+            })
+        }
+        
+    } catch (error) {
+        console.log(error);
+    }
+
+    
+}
+
+ValidateEmail=async(mail) =>{
+    if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(mail))
+    {
+        return 1
+    }else{
+        return 0
+    }
+    }
 
    
         render(){
+
+            const { ButtonName1 }   = this.state;
 
 return(
     <> 
@@ -283,18 +535,32 @@ name="alternate_mobile"/>
 <label class="labell2">Email Id</label>
 </div>
 <div className="col-sm-4">
-<input type="text"
- maxLength={10}
+<input type="email"
+//  maxLength={10}/
 class="form-control"
 placeholder="Enter the Alternate Mobile"
 onChange={this.handleChange}
-value={this.state.alternate_mobile}
-name="alternate_mobile"/>
+value={this.state.email_id}
+name="email_id"/>
 </div>
-<div className="col-sm-3"> <span class="errormsg">{this.state.erroralternate_mobile}</span> </div>
+<div className="col-sm-3"> <span class="errormsg">{this.state.erroremail_id}</span> </div>
 </div>
 
-
+<div className="row form-group">
+<div className="col-sm-2"></div>
+<div className="col-sm-2">
+<label class="labell2">Customer Address</label>
+</div>
+<div className="col-sm-4">
+<textarea type="text"
+class="form-control"
+placeholder="Enter the Customer address"
+onChange={this.handleChange}
+value={this.state.address}
+name="address"></textarea>
+</div>
+<div className="col-sm-3"> <span class="errormsg">{this.state.erroraddress}</span> </div>
+</div>
 
  </>  :  
  
@@ -386,7 +652,7 @@ selectedService={this.state.selectedDropLocationOption}
 /> */}
 <DatePickerandTime startDate={this.state.pickupDate} HandlePickUpdate={this.handleDateChange} minTime={this.state.minTime} />
 </div>
-<div className="col-sm-3"> <span class="errormsg">{this.state.errorDropLocationOption}</span> </div>
+<div className="col-sm-3"> <span class="errormsg">{this.state.errorpickupDate}</span> </div>
 </div>
 
 
@@ -399,13 +665,73 @@ selectedService={this.state.selectedDropLocationOption}
 
 <DatePickerandTime startDate={this.state.dropDate} HandlePickUpdate={this.handleDateChange1} minTime={this.state.minTime1} />
 </div>
-<div className="col-sm-3"> <span class="errormsg">{this.state.errorDropLocationOption}</span> </div>
+<div className="col-sm-3"> <span class="errormsg">{this.state.errordropDate}</span> </div>
 </div>
  }
 
 
-                
+<div className="row form-group">
+<div className="col-sm-2"></div>
+<div className="col-sm-2">
+<label class="labell2">Cab Type</label>
+</div>
+<div className="col-sm-4">
+<SingleSelect
+options={this.state.cabTypeOption}
+handleChange={d => this.HandleselectedcabTypeOption(d)}
+selectedService={this.state.selectedcabTypeOption}
+/>
+</div>
+<div className="col-sm-3"> <span class="errormsg">{this.state.errorcabTypeOption}</span> </div>
+</div>
 
+<div className="row form-group">
+<div className="col-sm-2"></div>
+<div className="col-sm-2">
+<label class="labell2">Trip Kms</label>
+</div>
+<div className="col-sm-4">
+<input type="text"
+class="form-control"
+placeholder="Enter the Trip Kilometer"
+onChange={event => this.setState({trip_kms: event.target.value.replace(/\D/,'')})}
+pattern="[0-9]*"
+value={this.state.trip_kms}
+name="trip_kms"/>
+</div>
+<div className="col-sm-3"> <span class="errormsg">{this.state.errortrip_kms}</span> </div>
+</div>
+
+
+<div className="row form-group">
+<div className="col-sm-2"></div>
+<div className="col-sm-2">
+<label class="labell2">Trip Charges</label>
+</div>
+<div className="col-sm-4">
+<input type="text"
+class="form-control"
+placeholder="Enter the Trip charges"
+onChange={event => this.setState({trip_charges: event.target.value.replace(/\D/,'')})}
+pattern="[0-9]*"
+value={this.state.trip_charges}
+name="trip_kms"/>
+</div>
+<div className="col-sm-3"> <span class="errormsg">{this.state.errortrip_charges}</span> </div>
+</div>
+                
+    <div class="row form-group">
+    <div className="col-sm-3"></div>
+    <div className="col-sm-6">
+    <button type="button"
+    style={{width:'100%'}} 
+    onClick={ ButtonName1 === true ? this.submit : this.Update  }
+    class="btn btn-primary m-t-15 waves-effect">
+        {ButtonName1 === true ? "Add Trips" : "Update Trips" }
+        </button>
+    </div>
+    <div className="col-sm-3"></div>
+    </div>
 
  {/* Input fields */}
 

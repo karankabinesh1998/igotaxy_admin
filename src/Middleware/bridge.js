@@ -63,6 +63,17 @@ const AddUniqueValueCity = async(t,FormData)=>{
 }
 
 
+const Addtrips = async(newcustomer,FormData)=>{
+  const result = await http.post(ACCESS_POINT + `/admin/trips/${newcustomer}`,FormData,{
+    headers:{
+      'Content-Type': 'multipart/form-data',
+    }
+  })
+  return result;
+}
+
+
+
 
 
 const updateMaster = async (tableName, id, categoryArray, column = "id") => {
@@ -113,5 +124,6 @@ export default {
     AddUser,
     AddUniqueValue,
     AddUniqueValueCity,
-    UpdateUniqueCity
+    UpdateUniqueCity,
+    Addtrips
 }
