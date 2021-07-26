@@ -1,12 +1,12 @@
 import React from 'react';
-import Bridge from '../../../Middleware/bridge';
+import Bridge from '../../Middleware/bridge';
 import { Alert } from "reactstrap";
-import {ACCESS_POINT} from '../../../config/index';
-import http from "../../../Middleware/http";
-import Datatable from "../../../Component/Datatable/Datatable";
+import {ACCESS_POINT} from '../../config/index';
+import http from "../../Middleware/http";
+import Datatable from "../../Component/Datatable/Datatable";
 import swal from 'sweetalert';
 import '../style1.css';
-import '../../../Component/loader.css'
+// import '../../../Component/loader.css'
 
 
 

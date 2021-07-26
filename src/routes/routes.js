@@ -18,6 +18,10 @@ import LoginPage from '../Website/Login';
 
 import Addusers from '../Website/Masters/Addusers';
 import AddVendar from '../Website/Masters/AddVendar';
+import AddCountry from '../Website/Masters/AddCountry';
+import AddState from '../Website/Masters/AddState';
+import Addcity from '../Website/Masters/Addcity';
+import AddTrips from '../Website/Masters/AddTrips';
 
 export default function Routes() {
     return (
@@ -89,6 +93,84 @@ export default function Routes() {
             <SideNav {...props}/>
             <div className="app-body">
              <AddVendar {...props}/>
+            </div>
+          <Footer {...props}/>
+          </div>
+          </div>
+          </React.Fragment>
+        )}
+      />
+
+
+<Route
+        exact
+        path={'/country'}
+        render={(props) => (
+          <React.Fragment>
+             <div id="app">
+             <div class="main-wrapper main-wrapper-1">
+            <Header {...props}/>
+            <SideNav {...props}/>
+            <div className="app-body">
+             <AddCountry {...props}/>
+            </div>
+          <Footer {...props}/>
+          </div>
+          </div>
+          </React.Fragment>
+        )}
+      />
+
+
+<Route
+        exact
+        path={'/state'}
+        render={(props) => (
+          <React.Fragment>
+             <div id="app">
+             <div class="main-wrapper main-wrapper-1">
+            <Header {...props}/>
+            <SideNav {...props}/>
+            <div className="app-body">
+             <AddState {...props}/>
+            </div>
+          <Footer {...props}/>
+          </div>
+          </div>
+          </React.Fragment>
+        )}
+      />
+
+<Route
+        exact
+        path={'/city'}
+        render={(props) => (
+          <React.Fragment>
+             <div id="app">
+             <div class="main-wrapper main-wrapper-1">
+            <Header {...props}/>
+            <SideNav {...props}/>
+            <div className="app-body">
+             <Addcity {...props}/>
+            </div>
+          <Footer {...props}/>
+          </div>
+          </div>
+          </React.Fragment>
+        )}
+      />
+
+<Route
+        exact
+        path={'/trip'}
+        render={(props) => (
+          <React.Fragment>
+             <div id="app">
+             <div class="main-wrapper main-wrapper-1">
+            <Header {...props}/>
+            <SideNav {...props}/>
+            <div className="app-body">
+             <AddTrips {...props}/>
             </div>
           <Footer {...props}/>
           </div>

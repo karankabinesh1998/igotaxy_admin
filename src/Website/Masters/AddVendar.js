@@ -10,7 +10,7 @@ import '../style1.css';
 import ModelWindow from "../../Component/Model";
 import Adddocument from '../ModelPages/Adddocument';
 import ViewDocument from '../ModelPages/Viewdocument'
-import Progress from '../../Component/Progress';
+// import Progress from '../../Component/Progress';
 
 
 
@@ -158,6 +158,16 @@ class AddVendar extends React.Component
 
       try{
 
+        swal({
+          title: "Are you sure?",
+          text: "Do you want to approve this vendor?",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then(async(willDelete) => {
+
+          if (willDelete) {
         const Update = await Bridge.updateMaster("tbl_vendar_documents",id,arr);
 
         previousData[index].approval = arr.approval;
@@ -166,7 +176,18 @@ class AddVendar extends React.Component
            this.setState({
              Data:previousData
            })
+           swal("Vendor is successfully approved!");
         }
+
+      }else{
+
+        swal("Approval has been cancelled!");
+        
+      }
+
+
+
+      });
 
       }catch(error){
         console.log(error);
@@ -780,6 +801,8 @@ deletion =async(value)=>{
 		});
           
         try{
+
+          console.log([...formData])
             // const Update = await Bridge.VendarDocument(formData);
             // if(Update){
             //     let values = Update.data.body;
@@ -840,7 +863,7 @@ deletion =async(value)=>{
             
 
             let { data } = await http.post(
-              ACCESS_POINT + `/cmsContent/UpdateVendarDocument/tbl_vendar_documents/${docdata.venid}`,
+              ACCESS_POINT + `/admin/UpdateVendarDocument/tbl_vendar_documents/${docdata.venid}`,
               formData,
               {
                 headers: {

@@ -1,13 +1,13 @@
 import React from 'react';
-import Bridge from '../../../Middleware/bridge';
+import Bridge from '../../Middleware/bridge';
 import { Alert } from "reactstrap";
-import {ACCESS_POINT} from '../../../config/index';
-import http from "../../../Middleware/http";
-import Datatable from "../../../Component/Datatable/Datatable";
+import {ACCESS_POINT} from '../../config/index';
+import http from "../../Middleware/http";
+import Datatable from "../../Component/Datatable/Datatable";
 import swal from 'sweetalert';
 import '../style1.css';
 //import '../../../Component/loader.css';
-import SingleSelect from '../../../Component/SingleSelect';
+import SingleSelect from '../../Component/SingleSelect';
 
 
 
@@ -376,13 +376,13 @@ deletion =async(value)=>{
         }  
 
         const formData=new FormData();
-        formData.append("state",name);
-        formData.append( "country_id" , selectedCountry.value );
+        formData.append("city",name);
+        formData.append( "state_id" , this.state.selectedstate.value );
 
         console.log([...formData])
         try{
 
-            const submit = await Bridge.AddUniqueValue("tbl_state",formData);
+            const submit = await Bridge.AddUniqueValueCity("tbl_city",formData);
            if(submit.data == false){
                 
             this.setState({

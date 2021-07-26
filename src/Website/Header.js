@@ -30,7 +30,7 @@ class Header extends Component {
       //console.log(result)
       let data = JSON.parse(localStorage.getItem("Userdetails"));
       if(data !== null){
-         console.log(data)
+        //  console.log(data)
          this.setState({Userdetails:data[0],Username:data[0].name,Profilepic:data[0].profile_dp})
       }else{
         window.location.href='/admin';

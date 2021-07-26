@@ -12,7 +12,7 @@ const ViewDocument = ({ data ,ViewDocumentstate, handleChangeFile,AddDoucment,Bu
            <div className="row form-group">
                 <div className="col-sm-2" />
                 <div className="col-sm-8">
-                  <img style={{width:'100%'}} alt="Upload the image" src={`${ACCESS_POINT}/cmsContent/vendarfile/${ViewDocumentstate.driving_licence_front}/${ViewDocumentstate.username}`} />
+                  <img style={{width:'100%'}} alt="Upload the image" src={`${ACCESS_POINT}/admin/vendarfile/${ViewDocumentstate.driving_licence_front}/${ViewDocumentstate.username}`} />
                 </div>
                 <div className="col-sm-2" />
             </div>
@@ -21,7 +21,7 @@ const ViewDocument = ({ data ,ViewDocumentstate, handleChangeFile,AddDoucment,Bu
            <div className="row form-group">
                 <div className="col-sm-2" />
                 <div className="col-sm-8">
-                  <img style={{width:'100%'}} alt="Upload the image" src={`${ACCESS_POINT}/cmsContent/vendarfile/${ViewDocumentstate.driving_licence_back}/${ViewDocumentstate.username}`} />
+                  <img style={{width:'100%'}} alt="Upload the image" src={`${ACCESS_POINT}/admin/vendarfile/${ViewDocumentstate.driving_licence_back}/${ViewDocumentstate.username}`} />
                 </div>
                 <div className="col-sm-2" />
             </div>
@@ -31,7 +31,7 @@ const ViewDocument = ({ data ,ViewDocumentstate, handleChangeFile,AddDoucment,Bu
            <div className="row form-group">
                 <div className="col-sm-2" />
                 <div className="col-sm-8">
-                  <img style={{width:'100%'}} alt="Upload the image" src={`${ACCESS_POINT}/cmsContent/vendarfile/${ViewDocumentstate.aadhar_front}/${ViewDocumentstate.username}`} />
+                  <img style={{width:'100%'}} alt="Upload the image" src={`${ACCESS_POINT}/admin/vendarfile/${ViewDocumentstate.aadhar_front}/${ViewDocumentstate.username}`} />
                 </div>
                 <div className="col-sm-2" />
             </div>
@@ -40,7 +40,7 @@ const ViewDocument = ({ data ,ViewDocumentstate, handleChangeFile,AddDoucment,Bu
            <div className="row form-group">
                 <div className="col-sm-2" />
                 <div className="col-sm-8">
-                  <img style={{width:'100%'}} alt="Upload the image" src={`${ACCESS_POINT}/cmsContent/vendarfile/${ViewDocumentstate.aadhar_back}/${ViewDocumentstate.username}`} />
+                  <img style={{width:'100%'}} alt="Upload the image" src={`${ACCESS_POINT}/admin/vendarfile/${ViewDocumentstate.aadhar_back}/${ViewDocumentstate.username}`} />
                 </div>
                 <div className="col-sm-2" />
             </div>

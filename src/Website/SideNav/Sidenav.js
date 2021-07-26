@@ -77,8 +77,10 @@ class Sidenav extends React.Component
               <ul class="dropdown-menu">
                 <li><a class="nav-link" id="anchorid" href={'/user'}>Add Users</a></li>
                 <li><a class="nav-link" id="anchorid" href={'/vendar'}>Add Vendars</a></li>
+                <li><a class="nav-link" id="anchorid" href={'/country'}>Add Country</a></li>
+                <li><a class="nav-link" id="anchorid" href={'/state'}>Add State</a></li>
                 <li><a class="nav-link" id="anchorid" href={'/city'}>Add City</a></li>
-                <li><a class="nav-link" id="anchorid" href={'/mapcity'}>Map City to Price</a></li>
+                {/* <li><a class="nav-link" id="anchorid" href={'/mapcity'}>Map City to Price</a></li> */}
                 {/* <li><a class="nav-link" id="anchorid" href={'/state'}>Add State</a></li>
                 <li><a class="nav-link" id="anchorid" href={'/city'}>Add City</a></li> */}
                 {/* <li><a class="nav-link" href="badge.html">Badge</a></li>
@@ -101,9 +103,9 @@ class Sidenav extends React.Component
 
 
             <li class="dropdown">
-            <a href="#" class="menu-toggle nav-link has-dropdown"> <AiOutlineCar size={24} style={{width:'20px',color:'black'}} /> <span  class="Sidenav"> Vehicle </span></a>
+            <a href="#" class="menu-toggle nav-link has-dropdown"> <AiOutlineCar size={24} style={{width:'20px',color:'black'}} /> <span  class="Sidenav"> Trips Master </span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" id="anchorid" href={`/vehicle`}>Vendar Vehicle</a></li>
+                <li><a class="nav-link" id="anchorid" href={`/trip`}>Add Trip</a></li>
                 {/* <li><a class="nav-link" href="card.html">Card</a></li>
                 <li><a class="nav-link" href="modal.html">Modal</a></li>
                 <li><a class="nav-link" href="sweet-alert.html">Sweet Alert</a></li>
@@ -114,7 +116,7 @@ class Sidenav extends React.Component
                 <li><a class="nav-link" href="tabs.html">Tab</a></li> */}
               </ul>
             </li>
-            <li><a class="nav-link" href="blank.html"><i data-feather="file"></i><span>Blank Page</span></a></li>
+            {/* <li><a class="nav-link" href="blank.html"><i data-feather="file"></i><span>Blank Page</span></a></li> */}
 
 
 
