@@ -113,10 +113,13 @@ const AddUser = async(data) =>{
   return result;
 }
 
-
+const TripsData = async () => {
+  const result = await http.get(`${ACCESS_POINT}/admin/gettrips`);
+  return result;
+};
 
 export default {
-    check,
+  TripsData,
     getFreedom,
     updateMaster,
     deleteMaster,

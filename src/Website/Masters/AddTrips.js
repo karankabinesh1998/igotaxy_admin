@@ -53,13 +53,133 @@ class AddTrips extends React.Component
                 erroraddress:"",
                 errorpickupDate:"",
                 errordropDate:"",
-                Userdetails : []
+                Userdetails : [],
+                column: [
+                        {
+                        Header: "customer_name",
+                        accessor: "customer_name"
+                        },
+                        {
+                        Header: "trip_type",
+                        accessor: "trip_type",
+
+                        },
+                        {
+                        Header: "cab_type",
+                        accessor: "cab_type",
+
+                        },
+                        {
+                        Header: "pickup",
+                        accessor: "pickuplocation_name",
+
+                        },
+                        {
+                        Header: "drop",
+                        accessor: "drop_location_name",
+
+                        },
+
+                        {
+                        Header: "pickup_date",
+                        accessor: "pickup_date",
+
+                        },
+
+                        {
+                        Header: "drop_date",
+                        accessor: "drop_date",
+
+                        },
+                        {
+
+                        Header:"Status",
+                        accessor:"status",
+                        Cell: (d) => this.Status(d),
+                        },
+
+
+
+                ]
+                
             }
 
         }
 
     }
 
+
+    Status = (d)=>{
+        let value = d;
+
+        if(d.original.trip_status === "active"){
+         
+            return (
+                <center>
+                  <button
+                    type="button"
+                    className="btn btn-info"
+                     onClick={() => this.StatusChange(value)}
+                  >
+                    Active
+                  </button>
+                </center>
+              );
+
+        }else{
+
+            return (
+                <center>
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                     onClick={() => this.StatusChange(value)}
+                  >
+                    Inactive
+                  </button>
+                </center>
+              );
+        }
+    }
+
+    StatusChange = async(e)=>{
+        let value = e.original.trip_status;
+        let id = e.original.id;
+        let index = e.index;
+        const previousData = [...this.state.Data];
+       // console.log(e.original)
+      //  console.log(previousData)
+  
+        let arr = {};
+ 
+        if(value === "active"){
+         
+        
+         arr.trip_status = "inactive"
+ 
+        }else{
+ 
+         arr.trip_status = "active"
+        }
+ 
+        //let 
+ 
+       try{
+ 
+         const Update = await Bridge.updateMaster("tbl_trips",id,arr);
+ 
+         previousData[index].trip_status = arr.trip_status;
+ 
+         if(Update){
+            this.setState({
+              Data:previousData
+            })
+         }
+ 
+       }catch(error){
+         console.log(error);
+       }
+     }
 
     async componentDidMount(){
         try {
@@ -112,6 +232,16 @@ class AddTrips extends React.Component
                 })
             }
 
+            }
+
+
+            let Trips_data = await Bridge.TripsData();
+
+            if(Trips_data.data.length){
+                console.log(Trips_data.data);
+                this.setState({
+                    Data:Trips_data.data
+                })
             }
             
         } catch (error) {
