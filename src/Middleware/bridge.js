@@ -84,6 +84,19 @@ const updateMaster = async (tableName, id, categoryArray, column = "id") => {
   return result;
 };
 
+const updateUser = async (tableName,formData,id, column = "id",  ) => {
+  // console.log([...categoryArray]);
+  const result = await http.put(
+    ACCESS_POINT + `/admin/adduser/${tableName}/${column}/${id}`,formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      },
+    }
+  );
+  return result;
+};
+
 
 const deleteMaster = async (tableName, id) => {
   const result = await http.delete(
@@ -128,5 +141,6 @@ export default {
     AddUniqueValue,
     AddUniqueValueCity,
     UpdateUniqueCity,
-    Addtrips
+    Addtrips,
+    updateUser
 }

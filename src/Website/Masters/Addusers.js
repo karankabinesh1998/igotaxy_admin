@@ -410,7 +410,7 @@ handleChange = async(e)=>{
            arr.confirmpassword=confirmpassword;
            arr.login_status =0;
            arr.id= submit.insertId;
-           arr.profile_pic = submit.profile_pic;
+           arr.profile_pic = submit.profile_dp;
           // arr.files = filename ;
            let newData = [arr,...this.state.Data];
           this.setState({
@@ -477,16 +477,25 @@ handleChange = async(e)=>{
         return false
     }
 
-    let arr={};
-    arr.username=username;
-    arr.name = username;
-    arr.email_id=email_id;
-    arr.password=password;
-    //arr.confirmpassword=confirmpassword;
-    arr.mobile=mobile;
+    // let arr={};
+    // arr.username=username;
+    // arr.name = username;
+    // arr.email_id=email_id;
+    // arr.password=password;
+    // //arr.confirmpassword=confirmpassword;
+    // arr.mobile=mobile;
+
+    const formData=new FormData();
+    formData.append("username",username);
+    // formData.append("name",username);
+    formData.append("mobile",mobile);
+    formData.append("email_id",email_id);
+    formData.append("password",password);
+    formData.append("profile_dp",this.state.file)
  
     try{
-        const Update = await Bridge.updateMaster("tbl_user_web",EditId,arr);
+      const Update = await Bridge.updateUser("tbl_user_web",formData,EditId);
+
         if(Update){
             console.log(Update)
             let newData = [...this.state.Data];

@@ -29,6 +29,8 @@ class AddVendar extends React.Component
                 formAlertdelete: false,
                 textALert:"",
                 color:"",
+                file:"",
+                filename:"",
                 ButtonTitle : "Add Vendar",
                 ButtonName : "Submit",
                 docummentfiles:[
@@ -450,7 +452,8 @@ deletion =async(value)=>{
       };
 
       edition = async(e)=>{
-        let value = e.original
+        let value = e.original;
+        console.log(value);
           this.setState({
               userdata : e.original,
               ButtonStatus:"Update",
@@ -461,7 +464,7 @@ deletion =async(value)=>{
               password:value.password,
               EditId:value.id,
               Index : e.index,
-              filename :value.profile_pic
+              filename :value.profile_dp,
           })
       }
 
@@ -544,7 +547,7 @@ deletion =async(value)=>{
       };
     
       handleChangeFile = async(e)=>{
-        console.log(e.target.files[0])
+        // console.log(e.target.files[0])
         this.setState({file:e.target.files[0],filename:e.target.files[0].name})
       }
 
@@ -627,8 +630,8 @@ deletion =async(value)=>{
           formData.append("userType",3);
           formData.append("login_status",0);
           formData.append("status",1);
-          formData.append("profile_dp",this.state.filename)
-          formData.append("file",this.state.file);
+          formData.append("profile_dp",this.state.file)
+          // formData.append("file",this.state.file);
     
         try{
     
@@ -723,18 +726,29 @@ deletion =async(value)=>{
             return false
         }
     
-        let arr={};
-        arr.username=username;
-        arr.name = username;
-        arr.email_id=email_id;
-        arr.password=password;
-        //arr.confirmpassword=confirmpassword;
-        arr.mobile=mobile;
+        // let arr={};
+        // arr.username=username;
+        // // arr.name = username;
+        // arr.email_id=email_id;
+        // arr.password=password;
+        // arr.profile_dp=this.state.file;
+        //   // arr.file = this.state.file;
+        // arr.mobile=mobile;
+
+        const formData=new FormData();
+          formData.append("username",username);
+          // formData.append("name",username);
+          formData.append("mobile",mobile);
+          formData.append("email_id",email_id);
+          formData.append("password",password);
+          formData.append("profile_dp",this.state.file)
+          // formData.append("file",this.state.file);
      
         try{
-            const Update = await Bridge.updateMaster("tbl_user_web",EditId,arr);
+          console.log([...formData])
+            const Update = await Bridge.updateUser("tbl_user_web",formData,EditId);
             if(Update){
-                console.log(Update)
+                
                 let newData = [...this.state.Data];
                 newData[Index].username = username;
                 newData[Index].name = username;
