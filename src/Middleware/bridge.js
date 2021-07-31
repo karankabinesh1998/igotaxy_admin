@@ -67,7 +67,7 @@ const Addtrips = async(newcustomer,FormData)=>{
   const result = await http.post(ACCESS_POINT + `/admin/trips/${newcustomer}`,FormData,{
     headers:{
       'Content-Type': 'multipart/form-data',
-    }
+    } 
   })
   return result;
 }

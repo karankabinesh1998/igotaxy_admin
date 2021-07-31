@@ -182,7 +182,7 @@ class Addusers extends React.Component
       edition =async(e)=>{
          
           let value = e.original;
-
+ 
           console.log(e);
 
           this.setState({

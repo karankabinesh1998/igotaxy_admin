@@ -745,7 +745,7 @@ deletion =async(value)=>{
           // formData.append("file",this.state.file);
      
         try{
-          console.log([...formData])
+          console.log([...formData]) 
             const Update = await Bridge.updateUser("tbl_user_web",formData,EditId);
             if(Update){
                 
