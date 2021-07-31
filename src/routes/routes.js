@@ -22,6 +22,7 @@ import AddCountry from '../Website/Masters/AddCountry';
 import AddState from '../Website/Masters/AddState';
 import Addcity from '../Website/Masters/Addcity';
 import AddTrips from '../Website/Masters/AddTrips';
+import AddWalletAmount from '../Website/Masters/AddWalletAmount';
 
 export default function Routes() {
     return (
@@ -171,6 +172,25 @@ export default function Routes() {
             <SideNav {...props}/>
             <div className="app-body">
              <AddTrips {...props}/>
+            </div>
+          <Footer {...props}/>
+          </div>
+          </div>
+          </React.Fragment>
+        )}
+      />
+
+<Route
+        exact
+        path={'/wallet'}
+        render={(props) => (
+          <React.Fragment>
+             <div id="app">
+             <div class="main-wrapper main-wrapper-1">
+            <Header {...props}/>
+            <SideNav {...props}/>
+            <div className="app-body">
+             <AddWalletAmount {...props}/>
             </div>
           <Footer {...props}/>
           </div>

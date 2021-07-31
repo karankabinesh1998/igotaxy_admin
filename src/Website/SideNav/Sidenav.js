@@ -80,7 +80,7 @@ class Sidenav extends React.Component
                 <li><a class="nav-link" id="anchorid" href={'/country'}>Add Country</a></li>
                 <li><a class="nav-link" id="anchorid" href={'/state'}>Add State</a></li>
                 <li><a class="nav-link" id="anchorid" href={'/city'}>Add City</a></li>
-                {/* <li><a class="nav-link" id="anchorid" href={'/mapcity'}>Map City to Price</a></li> */}
+                <li><a class="nav-link" id="anchorid" href={'/wallet'}>Add Wallet to Vendar</a></li>
                 {/* <li><a class="nav-link" id="anchorid" href={'/state'}>Add State</a></li>
                 <li><a class="nav-link" id="anchorid" href={'/city'}>Add City</a></li> */}
                 {/* <li><a class="nav-link" href="badge.html">Badge</a></li>

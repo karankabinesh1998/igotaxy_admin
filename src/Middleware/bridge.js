@@ -33,6 +33,16 @@ const getFreedom = async (
 };
 
 
+const AddMaster = async (t,data) => {
+  //console.log(data)
+  const result = await http.post(ACCESS_POINT + `/admin/master/${t}`,data,{
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return result;
+};
+
 
 const AddUniqueValue = async(t,FormData)=>{
   const result = await http.post(ACCESS_POINT + `/admin/AddUniqueValue/${t}`,FormData,{
@@ -142,5 +152,6 @@ export default {
     AddUniqueValueCity,
     UpdateUniqueCity,
     Addtrips,
-    updateUser
+    updateUser,
+    AddMaster
 }
