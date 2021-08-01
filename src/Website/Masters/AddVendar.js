@@ -344,7 +344,7 @@ deletion =async(value)=>{
     Status = (d)=>{
         let value = d;
 
-        if(d.original.status === "active"){
+        if(d.original.status == 1){
          
             return (
                 <center>

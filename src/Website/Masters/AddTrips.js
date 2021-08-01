@@ -54,6 +54,7 @@ class AddTrips extends React.Component
                 errorpickupDate:"",
                 errordropDate:"",
                 Userdetails : [],
+                extra_charge:"",
                 column: [
                         {
                         Header: "customer_name",
@@ -344,7 +345,7 @@ ScroolTop=async()=>{
 
 submit=async()=>{
     const { username,mobile,alternate_mobile,trip_kms,trip_charges,email_id,address,selectedcustomer,selectedDropLocationOption,selectedPickupLocationOption,
-    selectedTripTypeOption,selectedcabTypeOption,checkstatus,pickupDate,dropDate,Userdetails} = this.state;
+    selectedTripTypeOption,selectedcabTypeOption,checkstatus,extra_charge,pickupDate,dropDate,Userdetails} = this.state;
     let mailcheck = await this.ValidateEmail(email_id);
 
     // if(this.state.checkstatus == false ){
@@ -525,7 +526,7 @@ submit=async()=>{
     formData.append("cab_type",selectedcabTypeOption.label ? selectedcabTypeOption.label : null )
     formData.append("trip_kms",trip_kms)
     formData.append("trip_charges",trip_charges)
-    formData.append("extra_charge",selectedcabTypeOption.value ? selectedcabTypeOption.value : null)
+    formData.append("extra_charge",extra_charge)
     formData.append("admin_id",Userdetails[0].id)
     formData.append("trip_status","active")
 
@@ -539,8 +540,61 @@ submit=async()=>{
         if(result){
             console.log(result);
             this.setState({
+                    selectedDropLocationOption:{},
+                    selectedPickupLocationOption:{},
+                    username:"",
+                    mobile:{},
+                    email_id:"",
+                    alternate_mobile:"",
+                    address:"",
+                    selectedTripTypeOption:{},
+                    selectedcabTypeOption:{},
+                    selectedcustomer:{},
+                    trip_charges:"",
+                    trip_kms:"",
+                    pickupDate:"",
+                    dropDate:"",
+                    extra_charge:""
+            });
 
+            swal("Successfully added Trips")
+
+            let Trips_data = await Bridge.TripsData();
+
+            if(Trips_data.data.length){
+                console.log(Trips_data.data);
+                this.setState({
+                    Data:Trips_data.data
+                })
+            }
+
+            let CustomerDetails = await Bridge.getFreedom(
+                `*`,
+                `tbl_user_web`,
+                `userType = 4 and status = 1`
+            )
+
+            let CustomerDetailsOptions=[]
+            if(CustomerDetails.data.length){
+
+                // console.log(CustomerDetails);
+                
+
+                let wait = await CustomerDetails.data.map((ival,i)=>{
+                    let arr={}
+                    arr.value = ival.id;
+                    arr.label = `${ival.username}-${ival.mobile}-${ival.email_id}`
+
+                    CustomerDetailsOptions.push(arr)
+
+                })
+
+                await Promise.all(wait)     
+                         
+            this.setState({
+            CustomerDetailsOptions
             })
+        }
         }
         
     } catch (error) {
@@ -848,6 +902,23 @@ value={this.state.trip_charges}
 name="trip_kms"/>
 </div>
 <div className="col-sm-3"> <span class="errormsg">{this.state.errortrip_charges}</span> </div>
+</div>
+
+<div className="row form-group">
+<div className="col-sm-2"></div>
+<div className="col-sm-2">
+<label class="labell2">Extra Charges / Kms</label>
+</div>
+<div className="col-sm-4">
+<input type="text"
+class="form-control"
+placeholder="Enter the Trip Extra Charges / Kms"
+onChange={event => this.setState({extra_charge: event.target.value.replace(/\D/,'')})}
+pattern="[0-9]*"
+value={this.state.extra_charge}
+name="extra_charge"/>
+</div>
+<div className="col-sm-3"> <span class="errormsg">{this.state.errorextra_charge}</span> </div>
 </div>
                 
     <div class="row form-group">

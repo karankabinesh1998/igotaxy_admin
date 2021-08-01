@@ -25,6 +25,11 @@ class AddWalletAmount extends React.Component
                         // Cell: (d) => this.View_history(d)
                         },
                         {
+                            Header: "Mobile",
+                            accessor: "mobile",
+                            // Cell: (d) => this.View_history(d)
+                            },
+                        {
                             Header: "Wallet",
                             accessor: "wallet",
                         },
@@ -211,6 +216,7 @@ class AddWalletAmount extends React.Component
             this.setState({
                 erroramount : "Please enter the amount"
             })
+            return false
         }else{
             this.setState({
                 erroramount : ""
@@ -231,6 +237,18 @@ class AddWalletAmount extends React.Component
 
         try {
 
+            swal({
+                title: "Are you sure?",
+                text: `Do you want to ${debited ? 'Remove Amount' : 'Add Amount' } ?`,
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+              })
+              .then(async(willDelete) => {
+
+
+                if (willDelete) {
+
             let result = await Bridge.AddMaster(`tbl_wallet_master_history`,formData)
 
             if(result){
@@ -246,8 +264,18 @@ class AddWalletAmount extends React.Component
                     amount:0
                 })
 
+                swal(`${debited ? 'Amount Successfully Removed' : 'Amount Successfully Added'}`)
+
 
             }   
+
+        }else{
+            swal("Process Cancelled")
+        }
+
+        })
+
+            
             
         } catch (error) {
             console.log(error);
