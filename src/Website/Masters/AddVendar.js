@@ -645,7 +645,7 @@ deletion =async(value)=>{
             const submit = await Bridge.AddUser(formData);
             if(submit.data == false){
               this.setState({
-               erroremail :"Email Id already Exist"
+               erroremail :"User Id already Exist"
                 // Data : newData
      
             })
