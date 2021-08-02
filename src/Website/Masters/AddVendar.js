@@ -35,7 +35,8 @@ class AddVendar extends React.Component
                 ButtonName : "Submit",
                 docummentfiles:[
                     {name:"Driving License",Ptype:"dl",document:[{type:"front",file:null},{type:"back",file:null}]},
-                    {name:"Aadhar Card Proof",Ptype:"pn",document:[{type:"front",file:null},{type:"back",file:null}]}
+                    {name:"Aadhar Card Proof",Ptype:"pn",document:[{type:"front",file:null},{type:"back",file:null}]},
+                    {name:"Pan Card Proof",Ptype:"pn",document:[{type:"front",file:null},{type:"back",file:null}]}
                 ],
                 documentData:[],
                 column: [
@@ -807,6 +808,8 @@ deletion =async(value)=>{
           formData.append("driving_licence_back",docummentfiles[0].document[1].file);
           formData.append("aadhar_front",docummentfiles[1].document[0].file);
           formData.append("aadhar_back",docummentfiles[1].document[1].file);
+          formData.append("pancard_front",docummentfiles[2].document[0].file);
+          formData.append("pancard_back",docummentfiles[2].document[1].file);
 
 
         documentData.map((ival, i) => {
@@ -861,7 +864,8 @@ deletion =async(value)=>{
               this.setState({
                 docummentfiles:[
                   {name:"Driving License",Ptype:"dl",document:[{type:"front",file:null},{type:"back",file:null}]},
-                  {name:"Aadhar Card Proof",Ptype:"pn",document:[{type:"front",file:null},{type:"back",file:null}]}
+                  {name:"Aadhar Card Proof",Ptype:"pn",document:[{type:"front",file:null},{type:"back",file:null}]},
+                  {name:"Pan Card Proof",Ptype:"pn",document:[{type:"front",file:null},{type:"back",file:null}]}
                 ],
                 alertVisible:true,
                 color:"success",
@@ -912,7 +916,8 @@ deletion =async(value)=>{
               this.setState({
                 docummentfiles:[
                   {name:"Driving License",Ptype:"dl",document:[{type:"front",file:null},{type:"back",file:null}]},
-                  {name:"Aadhar Card Proof",Ptype:"pn",document:[{type:"front",file:null},{type:"back",file:null}]}
+                  {name:"Aadhar Card Proof",Ptype:"pn",document:[{type:"front",file:null},{type:"back",file:null}]},
+                  {name:"Pan Card Proof",Ptype:"pn",document:[{type:"front",file:null},{type:"back",file:null}]}
                 ],
                 alertVisible:true,
                 color:"success",

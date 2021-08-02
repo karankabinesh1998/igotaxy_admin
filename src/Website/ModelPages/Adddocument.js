@@ -3,7 +3,7 @@ import '../style1.css';
 import Progress from '../../Component/Progress';
 
 const Adddocument = ({ data , handleChangeFile,AddDoucment,ButtonName1=true,uploadPercentage, docummentfiles, Filename }) => {
-  //console.log(docummentfiles[0]);
+//   console.log(docummentfiles[0]);
     return(
      <React.Fragment>
           <div className="row form-group">
@@ -28,11 +28,11 @@ const Adddocument = ({ data , handleChangeFile,AddDoucment,ButtonName1=true,uplo
                    <React.Fragment>
                         <h3 class="header">{ival.name}</h3>
                        {ival.document.map((jval,j)=>{
-                         //  console.log(jval.file);
+                        //   console.log(jval);
                            return(
                            <React.Fragment>
                                <div class="form-group">
-                            <label  class="labell" >{ival.name} - Front Side </label>
+                            <label  class="labell" >{ival.name} - {jval.type} Side </label>
                             <div class="input-group">
                             <div class="input-group-prepend">
                             </div>
