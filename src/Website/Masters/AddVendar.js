@@ -268,6 +268,8 @@ class AddVendar extends React.Component
             this.state.docummentfiles[0].document[1].file = d.driving_licence_back;
             this.state.docummentfiles[1].document[0].file = d.aadhar_front;
             this.state.docummentfiles[1].document[1].file = d.aadhar_back;
+            this.state.docummentfiles[2].document[0].file = d.pancard_front;
+            this.state.docummentfiles[2].document[1].file = d.pancard_back;
         
         this.setState({
             docdata : e.original,
@@ -508,6 +510,8 @@ deletion =async(value)=>{
               result.data[j].driving_licence_back = null;
               result.data[j].aadhar_front = null;
               result.data[j].aadhar_back = null ;
+              result.data[j].pancard_front = null;
+              result.data[j].pancard_back = null ;
               result.data[j].venid = null;
               result.data[j].approval = 0 ;
                  result1.data.map((ival,i)=>{
@@ -518,6 +522,8 @@ deletion =async(value)=>{
                     result.data[j].approval = ival.approval == null ? 0 : ival.approval;
                     result.data[j].driving_licence_front = ival.driving_licence_front;
                     result.data[j].driving_licence_back = ival.driving_licence_back;
+                    result.data[j].pancard_front = ival.pancard_front;
+                    result.data[j].pancard_back = ival.pancard_back;
                     result.data[j].aadhar_front = ival.aadhar_front;
                     result.data[j].aadhar_back = ival.aadhar_back;
 
@@ -881,7 +887,7 @@ deletion =async(value)=>{
             
 
             let { data } = await http.post(
-              ACCESS_POINT + `/admin/UpdateVendarDocument/tbl_vendar_documents/${docdata.venid}`,
+              ACCESS_POINT + `/admin/UpdateVendarDocument/tbl_vendar_documents/${docdata.id}`,
               formData,
               {
                 headers: {
