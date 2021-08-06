@@ -143,7 +143,8 @@ class AddVendar extends React.Component
        let id = e.original.venid;
        let index = e.index;
        const previousData = [...this.state.Data];
-       console.log(this.state.Userdetails)
+      //  console.log(e.original)
+      let token = e.original.token;
        let arr = {};
         arr.approvedby = this.state.Userdetails[0].id;
 
@@ -178,8 +179,15 @@ class AddVendar extends React.Component
         if(Update){
            this.setState({
              Data:previousData
-           })
-           swal("Vendor is successfully approved!");
+           });
+
+           let CheckoutNotify = await Bridge.CheckoutNotify(token)
+           if(CheckoutNotify){
+             console.log(CheckoutNotify);
+            swal("Vendor is successfully approved!");
+           }
+
+          
         }
 
       }else{

@@ -136,14 +136,30 @@ const AddUser = async(data) =>{
   return result;
 }
 
+// const AddUser = async(data) =>{
+   
+//   const result = await http.post(ACCESS_POINT + `/admin/adduser`,data,{
+//     headers: {
+//       'Content-Type': 'multipart/form-data',
+//     },
+//   });
+//   return result;
+// }
+
 const TripsData = async () => {
   const result = await http.get(`${ACCESS_POINT}/admin/gettrips`);
+  return result;
+};
+
+const CheckoutNotify = async (token) => {
+  const result = await http.get(`${ACCESS_POINT}/admin/notify/${token}`);
   return result;
 };
 
 export default {
   TripsData,
     getFreedom,
+    CheckoutNotify,
     updateMaster,
     deleteMaster,
     LoginAdmin,
