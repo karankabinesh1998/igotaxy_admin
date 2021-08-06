@@ -316,7 +316,7 @@ class AddWalletAmount extends React.Component
                 id = "addwallet"
                 ButtonBody = {
                      <>
- <div className="row form-group">
+            <div className="row form-group">
                 <div className="col-sm-2" />
                 <div className="col-sm-8">
                 <Alert

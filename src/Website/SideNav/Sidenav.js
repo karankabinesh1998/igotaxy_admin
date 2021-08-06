@@ -106,6 +106,7 @@ class Sidenav extends React.Component
             <a href="#" class="menu-toggle nav-link has-dropdown"> <AiOutlineCar size={24} style={{width:'20px',color:'black'}} /> <span  class="Sidenav"> Trips Master </span></a>
               <ul class="dropdown-menu">
                 <li><a class="nav-link" id="anchorid" href={`/trip`}>Add Trip</a></li>
+                <li><a class="nav-link" id="anchorid" href={`/assignTrip`}>Assign Trip to Vendor</a></li>
                 {/* <li><a class="nav-link" href="card.html">Card</a></li>
                 <li><a class="nav-link" href="modal.html">Modal</a></li>
                 <li><a class="nav-link" href="sweet-alert.html">Sweet Alert</a></li>

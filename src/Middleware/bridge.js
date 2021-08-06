@@ -107,6 +107,14 @@ const updateUser = async (tableName,formData,id, column = "id",  ) => {
   return result;
 };
 
+const UpdateBiddingApproval=async (tableName, id, categoryArray,venid, column = "id") => {
+  const result = await http.put(
+    ACCESS_POINT + `/admin/UpdateBiddingApproval/${tableName}/${column}/${venid}`,
+    { id: id, categoryArray }
+  );
+  return result;
+};
+
 
 const deleteMaster = async (tableName, id) => {
   const result = await http.delete(
@@ -156,6 +164,26 @@ const CheckoutNotify = async (token) => {
   return result;
 };
 
+// const SendAssignedTripNotification = async (token) => {
+//   const result = await http.get(`${ACCESS_POINT}/admin/SendAssignedTripNotification/${token}`);
+//   return result;
+// };
+
+const SendAssignedTripNotification = async(data) =>{
+  const result = await http.post(ACCESS_POINT + `/admin/SendAssignedTripNotification`,data,{
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return result;
+}
+
+const TripsJson = async () => {
+  const result = await http.get(`${ACCESS_POINT}/admin/TripsJson`);
+  return result;
+};
+
+
 export default {
   TripsData,
     getFreedom,
@@ -169,5 +197,8 @@ export default {
     UpdateUniqueCity,
     Addtrips,
     updateUser,
-    AddMaster
+    AddMaster,
+    TripsJson,
+    SendAssignedTripNotification,
+    UpdateBiddingApproval
 }
