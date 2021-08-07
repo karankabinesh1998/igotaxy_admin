@@ -98,7 +98,11 @@ class AddTrips extends React.Component
                         accessor:"status",
                         Cell: (d) => this.Status(d),
                         },
-
+                        {
+                            Header: "Delete",
+                            accessor: "delete",
+                            Cell: (d) => this.delete(d),
+                          },
 
 
                 ]
@@ -109,6 +113,68 @@ class AddTrips extends React.Component
 
     }
 
+
+    delete = (d) => {
+
+        return (
+            <center>
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={() => this.deletion(d)}
+          >
+            Delete
+          </button>
+          </center>
+        );
+      };
+
+      deletion =async(value)=>{
+
+        const previousData = [...this.state.Data];
+        // Seperating data row using row-index
+        const getData = { ...previousData[value.index] };
+    
+        //getting id on that data
+        const id = getData.id;
+        //removing specific id in previous state data
+        const Data = previousData.filter((delelteid) => delelteid.id !== id);
+    
+        try {
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this Customer!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+              })
+              .then(async(willDelete) => {
+               
+                if (willDelete) {
+                    const result = await Bridge.deleteMaster(
+                        "tbl_trips",
+                        id
+                      );
+                      if (result) {
+                          console.log(result);
+                        this.setState({ Data });
+                        swal("Poof! Your Data has been deleted!", {
+                            icon: "success",
+                          });
+                        // setTimeout(() => this.setState({ formAlertdelete: false }), 3000);
+                      }
+                  
+                } else {
+                  swal("Your Data  is safe!");
+                }
+              });
+         
+        } catch (error) {
+          this.setState({ data: previousData });
+          console.log(error);
+        }
+        
+    }
 
     Status = (d)=>{
         let value = d;

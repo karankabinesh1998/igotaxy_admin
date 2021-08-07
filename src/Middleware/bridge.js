@@ -178,6 +178,24 @@ const SendAssignedTripNotification = async(data) =>{
   return result;
 }
 
+const AddDriverdata = async(data) =>{
+  const result = await http.post(ACCESS_POINT + `/admin/AddDriverdata`,data,{
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return result;
+}
+
+const EditDriverdata=async (data, id) => {
+  const result = await http.put(
+    ACCESS_POINT + `/admin/AddDriverdata/${id}`,
+    data
+  );
+  return result;
+};
+
+
 const TripsJson = async () => {
   const result = await http.get(`${ACCESS_POINT}/admin/TripsJson`);
   return result;
@@ -200,5 +218,7 @@ export default {
     AddMaster,
     TripsJson,
     SendAssignedTripNotification,
-    UpdateBiddingApproval
+    UpdateBiddingApproval,
+    AddDriverdata,
+    EditDriverdata
 }

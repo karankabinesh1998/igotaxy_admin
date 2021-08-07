@@ -27,6 +27,7 @@ import AddWalletAmount from '../Website/Masters/AddWalletAmount';
 
 //////Trips
 import AssignTripToVendor from '../Website/Masters/AssignTripToVendor';
+import AddDrivers from '../Website/Masters/AddDrivers';
 
 
 export default function Routes() {
@@ -70,23 +71,43 @@ export default function Routes() {
       />
 
 <Route
-        exact
-        path={'/assignTrip'}
-        render={(props) => (
-          <React.Fragment>
-             <div id="app">
-             <div class="main-wrapper main-wrapper-1">
-            <Header {...props}/>
-            <SideNav {...props}/>
-            <div className="app-body">
-             <AssignTripToVendor {...props} />
-            </div>
-          <Footer {...props}/>
-          </div>
-          </div>
-          </React.Fragment>
-        )}
-      />
+  exact
+  path={'/assignTrip'}
+  render={(props) => (
+    <React.Fragment>
+        <div id="app">
+        <div class="main-wrapper main-wrapper-1">
+      <Header {...props}/>
+      <SideNav {...props}/>
+      <div className="app-body">
+        <AssignTripToVendor {...props} />
+      </div>
+    <Footer {...props}/>
+    </div>
+    </div>
+    </React.Fragment>
+  )}
+/>
+
+
+<Route
+  exact
+  path={'/drivers'}
+  render={(props) => (
+    <React.Fragment>
+        <div id="app">
+        <div class="main-wrapper main-wrapper-1">
+      <Header {...props}/>
+      <SideNav {...props}/>
+      <div className="app-body">
+        <AddDrivers {...props} />
+      </div>
+    <Footer {...props}/>
+    </div>
+    </div>
+    </React.Fragment>
+  )}
+/>
 
 
 <Route

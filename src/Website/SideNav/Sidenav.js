@@ -119,7 +119,21 @@ class Sidenav extends React.Component
             </li>
             {/* <li><a class="nav-link" href="blank.html"><i data-feather="file"></i><span>Blank Page</span></a></li> */}
 
-
+            <li class="dropdown">
+            <a href="#" class="menu-toggle nav-link has-dropdown"> <AiOutlineCar size={24} style={{width:'20px',color:'black'}} /> <span  class="Sidenav"> Cabs & Drivers Master </span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" id="anchorid" href={`/drivers`}>Add Drivers</a></li>
+                <li><a class="nav-link" id="anchorid" href={`/cabs`}>Add Cabs</a></li>
+                {/* <li><a class="nav-link" href="card.html">Card</a></li>
+                <li><a class="nav-link" href="modal.html">Modal</a></li>
+                <li><a class="nav-link" href="sweet-alert.html">Sweet Alert</a></li>
+                <li><a class="nav-link" href="toastr.html">Toastr</a></li>
+                <li><a class="nav-link" href="empty-state.html">Empty State</a></li>
+                <li><a class="nav-link" href="multiple-upload.html">Multiple Upload</a></li>
+                <li><a class="nav-link" href="pricing.html">Pricing</a></li>
+                <li><a class="nav-link" href="tabs.html">Tab</a></li> */}
+              </ul>
+            </li>
 
             {/* <li class="menu-header">Otika</li>
             <li class="dropdown">

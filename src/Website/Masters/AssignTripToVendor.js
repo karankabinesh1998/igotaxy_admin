@@ -112,6 +112,17 @@ class AssignTripToVendor extends React.Component
             let arr ={}
             arr.trip_assigned_to = null;
 
+            swal({
+                title: "Are you sure?",
+                text: "Do you want to Reject this Assignment!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+              })
+              .then(async(willDelete) => {
+
+                if(willDelete){
+
             let result = await bridge.updateMaster(`tbl_trips`,e.original.trip_id,arr)
            
             if(result){
@@ -142,6 +153,10 @@ class AssignTripToVendor extends React.Component
 
             }
 
+            }else{
+                    swal("Process Cancelled")
+            }
+        })
             
         } catch (error) {
             console.log(error);
@@ -156,6 +171,17 @@ class AssignTripToVendor extends React.Component
 
             let arr ={}
             arr.trip_assigned_to = e.original.vendor_id;
+
+            swal({
+                title: "Are you sure?",
+                text: "Do you want to Assign this Trip!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+              })
+              .then(async(willDelete) => {
+
+                if(willDelete){
 
             let result = await bridge.updateMaster(`tbl_trips`,e.original.trip_id,arr)
            
@@ -185,6 +211,13 @@ class AssignTripToVendor extends React.Component
                     }
                 
             }
+
+        }else{
+            swal("Assign Trip to Vendor Cancelled")
+        }
+
+       
+    })
             
         } catch (error) {
             console.log(error);
@@ -242,7 +275,7 @@ class AssignTripToVendor extends React.Component
                 })
             }
 
-            console.log(Result);
+            // console.log(Result);
             
         } catch (error) {
             console.log(error);
@@ -251,7 +284,7 @@ class AssignTripToVendor extends React.Component
 
 
     render(){
-        console.log(this.state.CustomerDeatils);
+        // console.log(this.state.CustomerDeatils);
         return(
             <div class="main-content">
 
@@ -308,7 +341,7 @@ class AssignTripToVendor extends React.Component
             </div>
                 }
                 />
-<section class="section">
+                <section class="section">
                 <div class="section-body">
                 <div class="row">
                 <div class="col-12">

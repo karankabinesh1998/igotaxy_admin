@@ -33,7 +33,7 @@ class Header extends Component {
         //  console.log(data)
          this.setState({Userdetails:data[0],Username:data[0].name,Profilepic:data[0].profile_dp})
       }else{
-        window.location.href='/admin';
+        window.location.href='/';
       }
        window.scrollTo({
            top: 0,
