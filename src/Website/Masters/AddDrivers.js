@@ -38,6 +38,9 @@ class AddDrivers extends React.Component
                 file1:"",
                 file2:"",
                 file3:"",
+                d_front:"",
+                d_back:"",
+                police_c:"",
                 EditId:null,
                 column:[
                     {
@@ -160,7 +163,7 @@ deletion =async(value)=>{
       };
 
       edition=async(e)=>{
-          console.log(e);
+          console.log(e.original);
           let d = e.original;
 
           let index = e.index;
@@ -172,6 +175,7 @@ deletion =async(value)=>{
                   })
               }
           })
+          await Promise.all(wait);
 
           this.setState({
               index,
@@ -180,10 +184,14 @@ deletion =async(value)=>{
               driver_mobile:d.driver_mobile,
               driving_license_front:d.driving_license_front,
               driving_license_back:d.driving_license_back,
-              police_verify:d.police_verify,
+              police_verify:d.driving_license_back,
               overall_exp:d.overall_exp,
               ButtonName1:false,
-              EditId:d.id
+              EditId:d.id,
+              d_front:d.driving_license_front,
+              d_back:d.driving_license_back,
+              police_c:d.driving_license_back
+
           })
 
       }
@@ -313,6 +321,8 @@ deletion =async(value)=>{
 
             const Result = await bridge.AddDriverdata(formData)
             if(Result){
+
+                swal("SuccessFully Added Driver")
                 this.setState({
                     FullData:Result.data,
                     driver_email:"",
@@ -411,11 +421,20 @@ deletion =async(value)=>{
             formData.append("file2",this.state.file2)
             formData.append("file3",this.state.file3)
 
+            formData.append("d_front",this.state.d_front)
+            formData.append("d_back",this.state.d_back)
+            formData.append("police_c",this.state.police_c)
+
+            
+              
+              
+
             console.log([...formData]);
 
             const Result = await bridge.EditDriverdata(formData,EditId)
             if(Result){
                
+                swal("SuccessFully Updated Driver")
                 console.log(Result)
 
                 this.setState({
@@ -433,7 +452,10 @@ deletion =async(value)=>{
                     ButtonName1:true,
                     index:null,
                     EditId:null,
-                    selectedVendorData:{}
+                    selectedVendorData:{},
+                    d_front:"",
+                    d_back:"",
+                    police_c:""
                 })
             }
 

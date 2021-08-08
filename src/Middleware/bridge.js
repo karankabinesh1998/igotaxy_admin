@@ -197,7 +197,7 @@ const EditDriverdata=async (data, id) => {
 
 
 const TripsJson = async () => {
-  const result = await http.get(`${ACCESS_POINT}/admin/TripsJson`);
+  const result = await http.get(`${ACCESS_POINT}/admin/TripsJsons`);
   return result;
 };
 

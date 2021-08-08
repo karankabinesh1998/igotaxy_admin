@@ -1,8 +1,8 @@
 // AssignTripToVendor
 import React from 'react';
 import bridge from '../../Middleware/bridge';
-import  DatePickerandTime  from '../../Component/DatePickerandTime';
-import moment from 'moment'
+// import  DatePickerandTime  from '../../Component/DatePickerandTime';
+// import moment from 'moment'
 import Datatable from "../../Component/Datatable/Datatable";
 import swal from 'sweetalert';
 import ModelWindow from "../../Component/Model";
@@ -91,6 +91,8 @@ class AssignTripToVendor extends React.Component
     }
 
     AssignVendor=(e)=>{
+
+        console.log(e);
         
         if(e.original.status =="waiting"){
             return(
@@ -183,7 +185,22 @@ class AssignTripToVendor extends React.Component
 
                 if(willDelete){
 
-            let result = await bridge.updateMaster(`tbl_trips`,e.original.trip_id,arr)
+            let result = await bridge.updateMaster(`tbl_trips`,e.original.trip_id,arr);
+
+            let arr3 = {}
+
+            let amountt = parseInt(e.original.trip_kms)*parseInt(e.original.trip_charges); 
+
+            let d1 = amountt - parseInt(e.original.req_amount);
+            console.log(d1);
+            // arr3.wallet =parseInt(e.original.userwallet) - parseInt(d1) 
+
+            // let WalletRemove = await bridge.updateMaster(`tbl_user_web`,e.original.VendorId,arr3)
+
+            // if(WalletRemove){
+           let   WalletRemove =  await  this.RemoveMonney(d1,e.original.VendorId)
+            // }
+
            
             if(result){
 
@@ -224,6 +241,32 @@ class AssignTripToVendor extends React.Component
         }
     }
 
+    RemoveMonney=async(amount,user_id)=>{
+
+        try {
+
+            const formData=new FormData();
+            formData.append("amount",amount);
+            formData.append("user_id",user_id);
+            // if(debited==true){
+            formData.append("debited_credited","debited")
+            // }else{
+            // formData.append("debited_credited","credited")
+            // }
+
+            let result = await bridge.AddMaster(`tbl_wallet_master_history`,formData)
+
+            if(result){
+                return result;
+            }
+        
+                // formData.append("customerid",this.state.Userdetails[0].id)
+            
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 
     Biddings=(e)=>{
         return(
@@ -243,7 +286,7 @@ class AssignTripToVendor extends React.Component
         try {
 
             let result = await bridge.getFreedom(
-                `tbl_bidding_trips.*,tbl_user_web.username as UserName,tbl_user_web.token,tbl_trips.trip_assigned_to`,
+                `tbl_bidding_trips.*,tbl_trips.trip_kms,tbl_trips.trip_charges,tbl_user_web.username as UserName,tbl_user_web.token,tbl_trips.trip_assigned_to,tbl_user_web.wallet as userwallet,tbl_user_web.id as VendorId`,
                 `tbl_bidding_trips,tbl_user_web,tbl_trips`,
                 `tbl_bidding_trips.vendor_id = tbl_user_web.id and  tbl_trips.id = tbl_bidding_trips.trip_id  and tbl_bidding_trips.trip_id = ${e.original.id}`,
                 1,
