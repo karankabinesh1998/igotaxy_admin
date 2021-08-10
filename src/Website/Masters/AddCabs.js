@@ -8,7 +8,7 @@ import swal from 'sweetalert';
 import ModelWindow from "../../Component/Model";
 import SingleSelect from '../../Component/SingleSelect';
 
-class AddDrivers extends React.Component
+class AddCabs extends React.Component
 {
     constructor(props)
     {
@@ -21,26 +21,29 @@ class AddDrivers extends React.Component
                 selectedVendorData:{},
                 errorselectedVendorData:"",
                 ButtonName1:true,
-                driver_name:"",
+                cab_name:"",
                 errordriver_name:"",
-                driver_mobile:"",
+                cab_type:"",
                 errordriver_mobile:"",
                 driver_email:"",
                 errordriver_email:"",
-                driving_license_front:"",
+                cab_image_front:"",
                 errordriving_license_front:"",
-                driving_license_back:"",
+                cab_image_back:"",
                 errordriving_license_back:"",
-                police_verify:"",
+                cab_image_side:"",
+                cab_insurance:"",
                 errorpolice_verify:"",
                 erroroverall_exp:"",
                 overall_exp:"",
                 file1:"",
                 file2:"",
                 file3:"",
+                file4:"",
                 d_front:"",
                 d_back:"",
-                police_c:"",
+                d_side:"",
+                cab_ins:"",
                 EditId:null,
                 column:[
                     {
@@ -48,31 +51,28 @@ class AddDrivers extends React.Component
                         accessor:"username"
                     },
                     {
-                        Header:"Driver Name",
-                        accessor:"driver_name"
+                        Header:"Cab Name",
+                        accessor:"cab_name"
                     },
                     {
-                        Header:"Driver Mobile",
-                        accessor:"driver_mobile"
+                        Header:"Cab Type",
+                        accessor:"cab_type"
                     },
                     {
-                        Header:"Driver Email",
-                        accessor:"driver_email"
+                        Header:"Cab Number",
+                        accessor:"cab_number"
                     },
-                    {
-                        Header:"Experience",
-                        accessor:"overall_exp"
-                    },
+
                     {
                         Header: "Status",
                         accessor: "status",
                         Cell: (d) => this.Status(d),
                       },
-                     {
-                        Header: "Edit",
-                        accessor: "edit",
-                        Cell: (d) => this.edit(d),
-                      },
+                    //  {
+                    //     Header: "Edit",
+                    //     accessor: "edit",
+                    //     Cell: (d) => this.edit(d),
+                    //   },
                       {
                         Header: "Delete",
                         accessor: "delete",
@@ -109,7 +109,7 @@ class AddDrivers extends React.Component
  
        try{
  
-         const Update = await bridge.updateMaster("tbl_vendor_drivers",id,arr);
+         const Update = await bridge.updateMaster("tbl_vendor_cabs",id,arr);
  
          previousData[index].status = arr.status;
  
@@ -197,7 +197,7 @@ deletion =async(value)=>{
            
             if (willDelete) {
                 const result = await bridge.deleteMaster(
-                    "tbl_vendor_drivers",
+                    "tbl_vendor_cabs",
                     id
                   );
                   if (result) {
@@ -300,9 +300,9 @@ deletion =async(value)=>{
             }
 
             let FetchData = await bridge.getFreedom(
-                `tbl_vendor_drivers.*,tbl_user_web.username`,
-                `tbl_vendor_drivers,tbl_user_web`,
-                `tbl_vendor_drivers.vendor = tbl_user_web.id and tbl_user_web.status = 1`,
+                `tbl_vendor_cabs.*,tbl_user_web.username`,
+                `tbl_vendor_cabs,tbl_user_web`,
+                `tbl_vendor_cabs.vendor = tbl_user_web.id and tbl_user_web.status = 1`,
                 1,
                 `tbl_user_web.id`
               )
@@ -326,7 +326,7 @@ deletion =async(value)=>{
 
     submit=async()=>{
 
-        const { selectedVendorData , driver_name ,driving_license_back, driving_license_front,police_verify,overall_exp , driver_email ,driver_mobile } = this.state;
+ const { selectedVendorData , cab_name ,cab_type, cab_number,cab_image_front,cab_image_back , cab_image_side ,cab_rc_book_number,cab_insurance } = this.state;
 
         if(Object.keys(selectedVendorData).length === 0){
             this.setState({
@@ -340,78 +340,42 @@ deletion =async(value)=>{
             })
         }
 
-        if(!driver_name){
-            this.setState({
-                errordriver_name : "Enter the driver name"
-            })
-        }else{
-            this.setState({
-                errordriver_name:""
-            })
-        }
-
-        if(!driver_mobile){
-            this.setState({
-                errordriver_mobile : "Enter the driver mobile"
-            })
-        }else{
-            this.setState({
-                errordriver_mobile:""
-            })
-        }
-
-        // if(!driver_email){
-        //     this.setState({
-        //         errordriver_email : "Enter the driver Email Id"
-        //     })
-        // }else{
-        //     this.setState({
-        //         errordriver_email:""
-        //     })
-        // }
-
-
-        if(!driver_email){
-            this.setState({
-                errordriver_email : "Enter the driver Email Id"
-            })
-        }else{
-            this.setState({
-                errordriver_email:""
-            })
-        }
-
+        
         try {
 
             const formData=new FormData();
             formData.append("vendor",selectedVendorData.value);
-            formData.append("driver_name",driver_name);
-            formData.append("driver_mobile",driver_mobile);
-            formData.append("driver_email",driver_email);
-            formData.append("driving_license_front",driving_license_front);
-            formData.append("driving_license_back",driving_license_back);
-            formData.append("police_verify",police_verify);
-            formData.append("overall_exp",overall_exp);
-            formData.append("file",JSON.stringify(["file1","file2","file3"]))
+            formData.append("cab_name",cab_name);
+            formData.append("cab_type",cab_type);
+            formData.append("cab_image_front",cab_image_front);
+            formData.append("cab_image_back",cab_image_back);
+            formData.append("cab_image_side",cab_image_side);
+            formData.append("cab_number",cab_number);
+            formData.append("cab_rc_book_number",cab_rc_book_number);
+            formData.append("cab_insurance",cab_insurance);
+            formData.append("file",JSON.stringify(["file1","file2","file3","file4"]))
             formData.append("file1",this.state.file1)
             formData.append("file2",this.state.file2)
             formData.append("file3",this.state.file3)
+            formData.append("file4",this.state.file4)
 
-            const Result = await bridge.AddDriverdata(formData)
+            const Result = await bridge.Addcabs(formData)
             if(Result){
+                console.log(Result);
 
-                swal("SuccessFully Added Driver")
+                swal("SuccessFully Added Cab")
                 this.setState({
                     FullData:Result.data,
-                    driver_email:"",
-                    driver_mobile:"",
-                    driver_name:"",
-                    driving_license_front:"",
-                    driving_license_back:"",
+                    cab_name:"",
+                    cab_image_front:"",
+                    cab_type:"",
+                    cab_image_back:"",
+                    cab_image_side:"",
                     file1:"",
                     file2:'',
                     file3:"",
-                    police_verify:"",
+                    file4:"",
+                    cab_insurance:"",
                     overall_exp:"",
                     ButtonName1:false,
                     index:null,
@@ -556,15 +520,19 @@ deletion =async(value)=>{
         }
 
     handleChangeFile=async(e)=>{
-        this.setState({file1:e.target.files[0],driving_license_front:e.target.files[0].name})
+        this.setState({file1:e.target.files[0],cab_image_front:e.target.files[0].name})
     }
 
     handleChangeFile2=async(e)=>{
-        this.setState({file2:e.target.files[0],driving_license_back:e.target.files[0].name})
+        this.setState({file2:e.target.files[0],cab_image_back:e.target.files[0].name})
     }
 
     handleChangeFile3=async(e)=>{
-        this.setState({file3:e.target.files[0],police_verify:e.target.files[0].name})
+        this.setState({file3:e.target.files[0],cab_image_side:e.target.files[0].name})
+    }
+
+    handleChangeFile4=async(e)=>{
+        this.setState({file4:e.target.files[0],cab_insurance:e.target.files[0].name})
     }
 
 
@@ -580,7 +548,7 @@ deletion =async(value)=>{
 
             <div class="card">
             <div class="card-header">
-            <h3>Drivers For Vendor</h3>
+            <h3>Cabs For Vendor</h3>
             </div>
             <div class="card-body">
 
@@ -600,18 +568,19 @@ selectedService={this.state.selectedVendorData}
 </div>
 
 
+
 <div className="row form-group">
 <div className="col-sm-2"></div>
 <div className="col-sm-2">
-<label class="labell2"> Driver Name</label>
+<label class="labell2"> Cab Name</label>
 </div>
 <div className="col-sm-4">
             <input type="text"
             class="form-control"
-            placeholder="Enter the Driver name"
+            placeholder="Enter the Cab name"
             onChange={this.handleChange}
-            value={this.state.driver_name}
-            name="driver_name"/>
+            value={this.state.cab_name}
+            name="cab_name"/>
 </div>
 <div className="col-sm-3"> <span class="errormsg">{this.state.errordriver_name}</span> </div>
 </div>
@@ -620,16 +589,48 @@ selectedService={this.state.selectedVendorData}
 <div className="row form-group">
 <div className="col-sm-2"></div>
 <div className="col-sm-2">
-<label class="labell2"> Driver Mobile</label>
+<label class="labell2"> Cab Type</label>
+</div>
+<div className="col-sm-4">
+            <input type="text"
+            class="form-control"
+            placeholder="Enter the Cab Type"
+            onChange={this.handleChange}
+            value={this.state.cab_type}
+            name="cab_type"/>
+</div>
+<div className="col-sm-3"> <span class="errormsg">{this.state.errordriver_mobile}</span> </div>
+</div>
+
+<div className="row form-group">
+<div className="col-sm-2"></div>
+<div className="col-sm-2">
+<label class="labell2"> Cab Number</label>
+</div>
+<div className="col-sm-4">
+            <input type="text"
+            class="form-control"
+            placeholder="Enter the Cab Number"
+            onChange={this.handleChange}
+            value={this.state.cab_number}
+            name="cab_number"/>
+</div>
+<div className="col-sm-3"> <span class="errormsg">{this.state.errordriver_mobile}</span> </div>
+</div>
+
+<div className="row form-group">
+<div className="col-sm-2"></div>
+<div className="col-sm-2">
+<label class="labell2"> Cab Rc Number</label>
 </div>
 <div className="col-sm-4">
             <input type="text"
             class="form-control"
             maxLength={10}
-            placeholder="Enter the Driver mobile"
+            placeholder="Enter the Cab Rc Number"
             onChange={this.handleChange}
-            value={this.state.driver_mobile}
-            name="driver_mobile"/>
+            value={this.state.cab_rc_book_number}
+            name="cab_rc_book_number"/>
 </div>
 <div className="col-sm-3"> <span class="errormsg">{this.state.errordriver_mobile}</span> </div>
 </div>
@@ -638,24 +639,7 @@ selectedService={this.state.selectedVendorData}
 <div className="row form-group">
 <div className="col-sm-2"></div>
 <div className="col-sm-2">
-<label class="labell2"> Driver Email Id</label>
-</div>
-<div className="col-sm-4">
-            <input type="text"
-            class="form-control"
-            placeholder="Enter the Driver mobile"
-            onChange={this.handleChange}
-            value={this.state.driver_email}
-            name="driver_email"/>
-</div>
-<div className="col-sm-3"> <span class="errormsg">{this.state.errordriver_email}</span> </div>
-</div>
-
-
-<div className="row form-group">
-<div className="col-sm-2"></div>
-<div className="col-sm-2">
-<label class="labell2"> Driving License Front</label>
+<label class="labell2"> Cab image Front</label>
 </div>
 <div className="col-sm-4">
 <input
@@ -665,7 +649,7 @@ onChange={(e)=>this.handleChangeFile(e)}
 accept="image/*"
 />
 <label className="custom-file-label" htmlFor="customFileThumbnail">
-{this.state.driving_license_front ? this.state.driving_license_front.substring(0, 15) : null}
+{this.state.cab_image_front ? this.state.cab_image_front.substring(0, 15) : null}
 </label>
 </div>
 <div className="col-sm-3"> <span class="errormsg">{this.state.errordriving_license_front}</span> </div>
@@ -674,7 +658,7 @@ accept="image/*"
 <div className="row form-group">
 <div className="col-sm-2"></div>
 <div className="col-sm-2">
-<label class="labell2"> Driving License Back</label>
+<label class="labell2"> Cab Image Back</label>
 </div>
 <div className="col-sm-4">
 <input
@@ -684,7 +668,7 @@ onChange={(e)=>this.handleChangeFile2(e)}
 accept="image/*"
 />
 <label className="custom-file-label" htmlFor="customFileThumbnail">
-{this.state.driving_license_back ? this.state.driving_license_back.substring(0, 15) : null}
+{this.state.cab_image_back ? this.state.cab_image_back.substring(0, 15) : null}
 </label>
 </div>
 <div className="col-sm-3"> <span class="errormsg">{this.state.errordriving_license_back}</span> </div>
@@ -693,7 +677,7 @@ accept="image/*"
 <div className="row form-group">
 <div className="col-sm-2"></div>
 <div className="col-sm-2">
-<label class="labell2"> Police Certificate</label>
+<label class="labell2"> Cab Image Side </label>
 </div>
 <div className="col-sm-4">
 <input
@@ -703,7 +687,7 @@ onChange={(e)=>this.handleChangeFile3(e)}
 accept="image/*"
 />
 <label className="custom-file-label" htmlFor="customFileThumbnail">
-{this.state.police_verify ? this.state.police_verify.substring(0, 15) : null}
+{this.state.cab_image_side ? this.state.cab_image_side.substring(0, 15) : null}
 </label>
 </div>
 <div className="col-sm-3"> <span class="errormsg">{this.state.errorpolice_verify}</span> </div>
@@ -712,19 +696,21 @@ accept="image/*"
 <div className="row form-group">
 <div className="col-sm-2"></div>
 <div className="col-sm-2">
-<label class="labell2"> Experience</label>
+<label class="labell2"> Cab Insurance </label>
 </div>
 <div className="col-sm-4">
-            <input type="text"
-            class="form-control"
-            placeholder="Enter the Experience"
-            onChange={this.handleChange}
-            value={this.state.overall_exp}
-            name="overall_exp"/>
+<input
+type="file"
+className="custom-file-input"
+onChange={(e)=>this.handleChangeFile4(e)}
+accept="image/*"
+/>
+<label className="custom-file-label" htmlFor="customFileThumbnail">
+{this.state.cab_insurance ? this.state.cab_insurance.substring(0, 15) : null}
+</label>
 </div>
-<div className="col-sm-3"> <span class="errormsg">{this.state.erroroverall_exp}</span> </div>
+<div className="col-sm-3"> <span class="errormsg">{this.state.errorpolice_verify}</span> </div>
 </div>
-
 
 
 <div class="row form-group">
@@ -734,7 +720,7 @@ accept="image/*"
     style={{width:'100%'}} 
     onClick={ ButtonName1 === true ? this.submit : this.Update  }
     class="btn btn-primary m-t-15 waves-effect">
-        {ButtonName1 === true ? "Add Driver" : "Update Driver" }
+        {ButtonName1 === true ? "Add Cab" : "Update Cab" }
         </button>
     </div>
     <div className="col-sm-3"></div>
@@ -767,4 +753,4 @@ accept="image/*"
 
 }
 
-export default AddDrivers;
+export default AddCabs;

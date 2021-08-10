@@ -28,6 +28,7 @@ import AddWalletAmount from '../Website/Masters/AddWalletAmount';
 //////Trips
 import AssignTripToVendor from '../Website/Masters/AssignTripToVendor';
 import AddDrivers from '../Website/Masters/AddDrivers';
+import AddCabs from '../Website/Masters/AddCabs';
 
 
 export default function Routes() {
@@ -101,6 +102,26 @@ export default function Routes() {
       <SideNav {...props}/>
       <div className="app-body">
         <AddDrivers {...props} />
+      </div>
+    <Footer {...props}/>
+    </div>
+    </div>
+    </React.Fragment>
+  )}
+/>
+
+
+<Route
+  exact
+  path={'/cabs'}
+  render={(props) => (
+    <React.Fragment>
+        <div id="app">
+        <div class="main-wrapper main-wrapper-1">
+      <Header {...props}/>
+      <SideNav {...props}/>
+      <div className="app-body">
+        <AddCabs {...props} />
       </div>
     <Footer {...props}/>
     </div>

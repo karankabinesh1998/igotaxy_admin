@@ -187,6 +187,15 @@ const AddDriverdata = async(data) =>{
   return result;
 }
 
+const Addcabs = async(data) =>{
+  const result = await http.post(ACCESS_POINT + `/admin/Addcabs`,data,{
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return result;
+}
+
 const EditDriverdata=async (data, id) => {
   const result = await http.put(
     ACCESS_POINT + `/admin/AddDriverdata/${id}`,
@@ -220,5 +229,6 @@ export default {
     SendAssignedTripNotification,
     UpdateBiddingApproval,
     AddDriverdata,
-    EditDriverdata
+    EditDriverdata,
+    Addcabs
 }
