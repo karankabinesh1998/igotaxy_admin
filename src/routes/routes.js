@@ -29,6 +29,7 @@ import AddWalletAmount from '../Website/Masters/AddWalletAmount';
 import AssignTripToVendor from '../Website/Masters/AssignTripToVendor';
 import AddDrivers from '../Website/Masters/AddDrivers';
 import AddCabs from '../Website/Masters/AddCabs';
+import ActiveTrips from '../Website/Masters/ActiveTrips';
 
 
 export default function Routes() {
@@ -239,6 +240,25 @@ export default function Routes() {
             <SideNav {...props}/>
             <div className="app-body">
              <AddTrips {...props}/>
+            </div>
+          <Footer {...props}/>
+          </div>
+          </div>
+          </React.Fragment>
+        )}
+      />
+
+<Route
+        exact
+        path={'/activetrip'}
+        render={(props) => (
+          <React.Fragment>
+             <div id="app">
+             <div class="main-wrapper main-wrapper-1">
+            <Header {...props}/>
+            <SideNav {...props}/>
+            <div className="app-body">
+             <ActiveTrips {...props}/>
             </div>
           <Footer {...props}/>
           </div>

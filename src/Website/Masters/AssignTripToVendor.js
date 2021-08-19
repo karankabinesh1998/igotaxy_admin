@@ -61,6 +61,7 @@ class AssignTripToVendor extends React.Component
     }
 
     ViewCustomer=(e)=>{
+        console.log(e);
         return(
             <button type="button"  data-toggle="modal"
             data-target="#viewcustom" style={{width:'95%'}} onClick={()=>this.ViewCustomerFull(e)} className="btn btn-primary">{e.original.customer_name}</button>
@@ -92,7 +93,7 @@ class AssignTripToVendor extends React.Component
 
     AssignVendor=(e)=>{
 
-        console.log(e);
+        // console.log(e);
         
         if(e.original.status =="waiting"){
             return(
@@ -173,6 +174,7 @@ class AssignTripToVendor extends React.Component
 
             let arr ={}
             arr.trip_assigned_to = e.original.vendor_id;
+            arr.trip_status = "triptaken"
 
             swal({
                 title: "Are you sure?",
@@ -198,7 +200,7 @@ class AssignTripToVendor extends React.Component
             // let WalletRemove = await bridge.updateMaster(`tbl_user_web`,e.original.VendorId,arr3)
 
             // if(WalletRemove){
-           let   WalletRemove =  await  this.RemoveMonney(d1,e.original.VendorId)
+           let   WalletRemove =  await  this.RemoveMonney(d1,e.original.VendorId);
             // }
 
            
@@ -313,6 +315,7 @@ class AssignTripToVendor extends React.Component
             let Result = await bridge.TripsJson();
 
             if(Result){
+                // console.log(Result);
                 this.setState({
                     FullData:Result.data
                 })
