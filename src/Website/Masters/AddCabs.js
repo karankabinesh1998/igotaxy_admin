@@ -1,8 +1,7 @@
 // AddDrivers.
 import React from 'react';
 import bridge from '../../Middleware/bridge';
-// import  DatePickerandTime  from '../../Component/DatePickerandTime';
-import moment from 'moment'
+import { ACCESS_POINT } from '../../config/index';
 import Datatable from "../../Component/Datatable/Datatable";
 import swal from 'sweetalert';
 import ModelWindow from "../../Component/Model";
@@ -62,7 +61,11 @@ class AddCabs extends React.Component
                         Header:"Cab Number",
                         accessor:"cab_number"
                     },
-
+                    {
+                        Header:"View Documents",
+                        accessor:"overall_exp",
+                        Cell: (d) => this.Documnets(d),
+                    },
                     {
                         Header: "Status",
                         accessor: "status",
@@ -78,12 +81,31 @@ class AddCabs extends React.Component
                         accessor: "delete",
                         Cell: (d) => this.delete(d),
                       },
-                ]
+                ],
+                ViewDocData:{}
             }
 
         }
 
     }
+
+    Documnets=(e)=>{
+        return(
+            <button type="button" className="btn btn-primary" data-toggle="modal"
+            data-target="#viewdoc" onClick={()=>this.ViewDoc(e)}>
+                View
+            </button>
+        )
+    }
+
+
+    ViewDoc=async(e)=>{
+        console.log(e.original);
+        this.setState({
+            ViewDocData : e.original
+        })
+    }
+
 
     StatusChange = async(e)=>{
         let value = e.original.status;
@@ -540,6 +562,56 @@ deletion =async(value)=>{
         const { ButtonName1 } = this.state;
         return(
             <div class="main-content">
+
+<ModelWindow  
+            ButtonTitle = {"View Document"}
+            ButtonName = {"View Document"}
+            id = "viewdoc"
+            indexStyle={{color:"black",fontWeight: '500'}}
+            ButtonBody = {
+                <React.Fragment>
+           <h3>Cab Details</h3>
+           <p>cab image front</p>
+           <div className="row form-group">
+                <div className="col-sm-3" />
+                <div className="col-sm-6">
+                  <img style={{width:'100%',height:'50%'}} alt="Upload the image" src={`${ACCESS_POINT}/admin/vendarfile/${this.state.ViewDocData.cab_image_front}/${this.state.ViewDocData.vendor}`} />
+                </div>
+                <div className="col-sm-3" />
+            </div>
+
+            <p>cab image back</p>
+           <div className="row form-group">
+                <div className="col-sm-3" />
+                <div className="col-sm-6">
+                  <img style={{width:'100%',height:'50%'}} alt="Upload the image" src={`${ACCESS_POINT}/admin/vendarfile/${this.state.ViewDocData.cab_image_back}/${this.state.ViewDocData.vendor}`} />
+                </div>
+                <div className="col-sm-3" />
+            </div>
+
+            <p>cab image side</p>
+           <div className="row form-group">
+                <div className="col-sm-3" />
+                <div className="col-sm-6">
+                  <img style={{width:'100%',height:'50%'}} alt="Upload the image" src={`${ACCESS_POINT}/admin/vendarfile/${this.state.ViewDocData.cab_image_side}/${this.state.ViewDocData.vendor}`} />
+                </div>
+                <div className="col-sm-3" />
+            </div>
+
+            <p>cab insurance</p>
+           <div className="row form-group">
+                <div className="col-sm-3" />
+                <div className="col-sm-6">
+                  <img style={{width:'100%',height:'50%'}} alt="Upload the image" src={`${ACCESS_POINT}/admin/vendarfile/${this.state.ViewDocData.cab_insurance}/${this.state.ViewDocData.vendor}`} />
+                </div>
+                <div className="col-sm-3" />
+            </div>
+
+
+
+            </React.Fragment>
+            }
+            />
 
             <section class="section">
             <div class="section-body">

@@ -30,6 +30,8 @@ import AssignTripToVendor from '../Website/Masters/AssignTripToVendor';
 import AddDrivers from '../Website/Masters/AddDrivers';
 import AddCabs from '../Website/Masters/AddCabs';
 import ActiveTrips from '../Website/Masters/ActiveTrips';
+import ChatRoom from '../Website/ChatPage/ChatRoom';
+// import Chat from '../Website/ChatPage/Chat';
 
 
 export default function Routes() {
@@ -55,7 +57,7 @@ export default function Routes() {
 
 <Route
         exact
-        path={'/dashboard'}
+        path={'/dashboard/:roomId?'}
         render={(props) => (
           <React.Fragment>
              <div id="app">
@@ -63,7 +65,7 @@ export default function Routes() {
             <Header {...props}/>
             <SideNav {...props}/>
             <div className="app-body">
-             
+             {/* <ChatRoom {...props}/> */}
             </div>
           <Footer {...props}/>
           </div>
@@ -268,23 +270,25 @@ export default function Routes() {
       />
 
 <Route
-        exact
-        path={'/wallet'}
-        render={(props) => (
-          <React.Fragment>
-             <div id="app">
-             <div class="main-wrapper main-wrapper-1">
-            <Header {...props}/>
-            <SideNav {...props}/>
-            <div className="app-body">
-             <AddWalletAmount {...props}/>
-            </div>
-          <Footer {...props}/>
-          </div>
-          </div>
-          </React.Fragment>
-        )}
-      />
+exact
+path={'/wallet'}
+render={(props) => (
+  <React.Fragment>
+      <div id="app">
+      <div class="main-wrapper main-wrapper-1">
+    <Header {...props}/>
+    <SideNav {...props}/>
+    <div className="app-body">
+      <AddWalletAmount {...props}/>
+    </div>
+  <Footer {...props}/>
+  </div>
+  </div>
+  </React.Fragment>
+)}
+/>
+
+
    
 
  </BrowserRouter>
