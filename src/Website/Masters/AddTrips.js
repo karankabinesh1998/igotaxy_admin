@@ -57,6 +57,10 @@ class AddTrips extends React.Component
                 extra_charge:"",
                 column: [
                         {
+                        Header: "Trip Id",
+                        accessor: "trip_id"
+                        },
+                        {
                         Header: "customer_name",
                         accessor: "customer_name"
                         },
