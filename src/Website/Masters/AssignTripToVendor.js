@@ -251,12 +251,13 @@ class AssignTripToVendor extends React.Component
             formData.append("amount",amount);
             formData.append("user_id",user_id);
             // if(debited==true){
+            formData.append("reason",`trip travel`)    
             formData.append("debited_credited","debited")
             // }else{
             // formData.append("debited_credited","credited")
             // }
 
-            let result = await bridge.AddMaster(`tbl_wallet_master_history`,formData)
+            let result = await bridge.AddMaster(`tbl_wallet_master_history`,formData,1)
 
             if(result){
                 return result;

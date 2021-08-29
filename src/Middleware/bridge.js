@@ -33,9 +33,9 @@ const getFreedom = async (
 };
 
 
-const AddMaster = async (t,data) => {
+const AddMaster = async (t,data,id = null) => {
   //console.log(data)
-  const result = await http.post(ACCESS_POINT + `/admin/master/${t}`,data,{
+  const result = await http.post(ACCESS_POINT + `/admin/master/${t}/${id}`,data,{
     headers: {
       'Content-Type': 'multipart/form-data',
     },
