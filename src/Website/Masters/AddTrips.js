@@ -38,6 +38,8 @@ class AddTrips extends React.Component
                 selectedDropLocationOption:{},
                 errorDropLocationOption:"",
                 pickupDate:"",
+                pickupDate_new:"",
+                dropDate_new:"",
                 dropDate:"",
                 minTime : this.calculateMinTime(new Date()),
                 minTime1 : this.calculateMinTime1(new Date()),
@@ -374,6 +376,7 @@ class AddTrips extends React.Component
 
 
 // add these two functions to your component
+
 calculateMinTime = date => {
     let isToday = moment(date).isSame(moment(), 'day');
     if (isToday) {
@@ -393,15 +396,23 @@ calculateMinTime1 = date => {
 }
 
 handleDateChange1 = date => {
+    let d = new Date(date)
+    let chance_pick = `${d.getFullYear()}-${d.getMonth()+1 > 9 ? d.getMonth()+1 : `0${d.getMonth()+1}` }-${d.getDate()>9 ? d.getDate() : `0${d.getDate()}`} ${d.getHours()>9 ? d.getHours() : `0${d.getHours()}`}:${d.getMinutes() > 9 ? d.getMinutes() : `0${d.getMinutes()}`}:${d.getSeconds() > 9 ? d.getSeconds() : `0${d.getSeconds()}`}`
     this.setState({
         dropDate: date,
         minTime1: this.calculateMinTime1(date),
+        dropDate_new:chance_pick
     });
 }
 
 handleDateChange = date => {
+        console.log(date)
+        let d = new Date(date)
+        let chance_pick = `${d.getFullYear()}-${d.getMonth()+1 > 9 ? d.getMonth()+1 : `0${d.getMonth()+1}` }-${d.getDate()>9 ? d.getDate() : `0${d.getDate()}`} ${d.getHours()>9 ? d.getHours() : `0${d.getHours()}`}:${d.getMinutes() > 9 ? d.getMinutes() : `0${d.getMinutes()}`}:${d.getSeconds() > 9 ? d.getSeconds() : `0${d.getSeconds()}`}`
+        //  console.log(chance_pick)
     this.setState({
-        pickupDate: date,
+        pickupDate:date,
+        pickupDate_new:chance_pick,
         minTime: this.calculateMinTime(date),
     });
 }
@@ -591,8 +602,8 @@ submit=async()=>{
     formData.append("trip_type",selectedTripTypeOption.label)
     formData.append("pickup_location",selectedPickupLocationOption.value ? selectedPickupLocationOption.value : null )
     formData.append("drop_location",selectedDropLocationOption.value ? selectedDropLocationOption.value : null )
-    formData.append("pickup_date",moment(pickupDate).format('YYYY-MM-DD hh:mm:ss') )
-    formData.append("drop_date",moment(dropDate).format('YYYY-MM-DD hh:mm:ss'))
+    formData.append("pickup_date",this.state.pickupDate_new) 
+    formData.append("drop_date",this.state.dropDate_new)
     formData.append("cab_type",selectedcabTypeOption.label ? selectedcabTypeOption.label : null )
     formData.append("trip_kms",trip_kms)
     formData.append("trip_charges",trip_charges)
