@@ -31,6 +31,7 @@ import AddDrivers from '../Website/Masters/AddDrivers';
 import AddCabs from '../Website/Masters/AddCabs';
 import ActiveTrips from '../Website/Masters/ActiveTrips';
 import ChatRoom from '../Website/ChatPage/ChatRoom';
+import AddAnnouncement from '../Website/Masters/AddAnnouncement';
 // import Chat from '../Website/ChatPage/Chat';
 
 
@@ -56,23 +57,43 @@ export default function Routes() {
 
 
 <Route
-        exact
-        path={'/dashboard/:roomId?'}
-        render={(props) => (
-          <React.Fragment>
-             <div id="app">
-             <div class="main-wrapper main-wrapper-1">
-            <Header {...props}/>
-            <SideNav {...props}/>
-            <div className="app-body">
-             {/* <ChatRoom {...props}/> */}
-            </div>
-          <Footer {...props}/>
-          </div>
-          </div>
-          </React.Fragment>
-        )}
-      />
+exact
+path={'/dashboard'}
+render={(props) => (
+<React.Fragment>
+    <div id="app">
+    <div class="main-wrapper main-wrapper-1">
+  <Header {...props}/>
+  <SideNav {...props}/>
+  <div className="app-body">
+    {/* <ChatRoom {...props}/> */}
+  </div>
+<Footer {...props}/>
+</div>
+</div>
+</React.Fragment>
+)}
+/>
+
+
+<Route
+exact
+path={'/announcement'}
+render={(props) => (
+<React.Fragment>
+    <div id="app">
+    <div class="main-wrapper main-wrapper-1">
+  <Header {...props}/>
+  <SideNav {...props}/>
+  <div className="app-body">
+    <AddAnnouncement {...props}/>
+  </div>
+<Footer {...props}/>
+</div>
+</div>
+</React.Fragment>
+)}
+/>
 
 <Route
   exact
