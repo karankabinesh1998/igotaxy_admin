@@ -429,33 +429,60 @@ submit=async()=>{
     selectedTripTypeOption,selectedcabTypeOption,checkstatus,extra_charge,pickupDate,dropDate,Userdetails} = this.state;
     let mailcheck = await this.ValidateEmail(email_id);
 
-    // if(this.state.checkstatus == false ){
-    //     // console.log(Object.keys(selectedcabTypeOption).length);
-    //     if(!username){
-    //         this.setState({
-    //             errorusername:"enter the username"
-    //         })
-    //         this.ScroolTop()
-    //         return false
+    if(this.state.checkstatus==false){
+        //console.log(Object.keys(selectedcabTypeOption).length);
+        if(!username){
+
+            this.setState({
+                errorusername:"enter the username"
+            })
+            this.ScroolTop();
+            return false
+     
+        }else{
+
+            this.setState({
+                errorusername:""
+            })
+        }
+
+        if(!mobile){
+
+            this.setState({
+                errormobile:"enter the mobile",
+               
+            })
+            this.ScroolTop()
+            return false
+
+        }else{
+
+            this.setState({
+                errormobile:"",
+               
+            })
+        }
+
+
+        if(!email_id){
+            this.setState({
+               
+                erroremail_id:"Enter the email id"
+            })
+            this.ScroolTop();
+            return false
+        }else if(mailcheck==0){
+
+            this.setState({erroremail_id:"Enter the valid email id"})
+            this.ScroolTop()
+            return false
+        }else{
+            this.setState({erroremail_id:""})
+        }
+
+    }    
             
-    //     }else if(!mobile){
-    //         this.setState({
-    //             errormobile:"enter the mobile",
-    //             errorusername:""
-    //         })
-    //         this.ScroolTop()
-    //         return false
-    //     }else if(!email_id){
-    //         this.setState({
-    //             errormobile:"",
-    //             erroremail_id:"Enter the email id"
-    //         })
-    //         this.ScroolTop()
-    //     }else if(mailcheck==0){
-    //         this.setState({erroremail_id:"Enter the valid email id"})
-    //         this.ScroolTop()
-    //         return false
-    //       }
+    
     //       else if(!address){
     //         this.setState({
     //             erroremail_id:"",

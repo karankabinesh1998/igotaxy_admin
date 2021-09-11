@@ -14,7 +14,7 @@ const ViewDocument = ({ data ,ViewDocumentstate, handleChangeFile,AddDoucment,Bu
                 <div className="col-sm-8">
                   <img style={{width:'100%',height:'400px'}} alt="Upload the image" src={`${ACCESS_POINT}/admin/vendarfile/${ViewDocumentstate.driving_licence_front}/${ViewDocumentstate.userid}`} />
                 </div>
-                <div className="col-sm-2" />
+                <div className="col-sm-2"/>
             </div>
 
             <p>Driving Licence Back</p>
