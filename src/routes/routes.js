@@ -32,6 +32,7 @@ import AddCabs from '../Website/Masters/AddCabs';
 import ActiveTrips from '../Website/Masters/ActiveTrips';
 import ChatRoom from '../Website/ChatPage/ChatRoom';
 import AddAnnouncement from '../Website/Masters/AddAnnouncement';
+import Privacy_Policy from '../Website/Privacy_Policy';
 // import Chat from '../Website/ChatPage/Chat';
 
 
@@ -49,6 +50,19 @@ export default function Routes() {
           <React.Fragment>
             
              <LoginPage {...props} />
+          
+          </React.Fragment>
+        )}
+      />
+
+
+<Route
+        exact
+        path={'/privacyandpolicy'}
+        render={(props) => (
+          <React.Fragment>
+            
+             <Privacy_Policy {...props} />
           
           </React.Fragment>
         )}
