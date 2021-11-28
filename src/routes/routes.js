@@ -2,7 +2,7 @@ import React from 'react';
 
 import { BrowserRouter, Route } from 'react-router-dom';
 
-import Homepage from '../Website/Homepage';
+// import Homepage from '../Website/Homepage';
 
 
 
@@ -30,17 +30,18 @@ import AssignTripToVendor from '../Website/Masters/AssignTripToVendor';
 import AddDrivers from '../Website/Masters/AddDrivers';
 import AddCabs from '../Website/Masters/AddCabs';
 import ActiveTrips from '../Website/Masters/ActiveTrips';
-import ChatRoom from '../Website/ChatPage/ChatRoom';
+// import ChatRoom from '../Website/ChatPage/ChatRoom';
 import AddAnnouncement from '../Website/Masters/AddAnnouncement';
 import Privacy_Policy from '../Website/Privacy_Policy';
+import PaymentMainPage from '../Website/paymentMainPage';
 // import Chat from '../Website/ChatPage/Chat';
 
 
 export default function Routes() {
-    return (
-<BrowserRouter>
+  return (
+    <BrowserRouter>
 
-      
+
 
 
       <Route
@@ -48,286 +49,298 @@ export default function Routes() {
         path={'/'}
         render={(props) => (
           <React.Fragment>
-            
-             <LoginPage {...props} />
-          
+
+            <LoginPage {...props} />
+
           </React.Fragment>
         )}
       />
 
 
-<Route
+      <Route
         exact
         path={'/privacyandpolicy'}
         render={(props) => (
           <React.Fragment>
-            
-             <Privacy_Policy {...props} />
-          
+
+            <Privacy_Policy {...props} />
+
+          </React.Fragment>
+        )}
+      />
+
+      <Route
+        exact
+        path={'/payment/:loginToken/:amountUser'}
+        render={(props) => (
+          <React.Fragment>
+
+            <PaymentMainPage {...props} />
+
           </React.Fragment>
         )}
       />
 
 
 
-<Route
-exact
-path={'/dashboard'}
-render={(props) => (
-<React.Fragment>
-    <div id="app">
-    <div class="main-wrapper main-wrapper-1">
-  <Header {...props}/>
-  <SideNav {...props}/>
-  <div className="app-body">
-    {/* <ChatRoom {...props}/> */}
-  </div>
-<Footer {...props}/>
-</div>
-</div>
-</React.Fragment>
-)}
-/>
+      <Route
+        exact
+        path={'/dashboard'}
+        render={(props) => (
+          <React.Fragment>
+            <div id="app">
+              <div class="main-wrapper main-wrapper-1">
+                <Header {...props} />
+                <SideNav {...props} />
+                <div className="app-body">
+                  {/* <ChatRoom {...props}/> */}
+                </div>
+                <Footer {...props} />
+              </div>
+            </div>
+          </React.Fragment>
+        )}
+      />
 
 
-<Route
-exact
-path={'/announcement'}
-render={(props) => (
-<React.Fragment>
-    <div id="app">
-    <div class="main-wrapper main-wrapper-1">
-  <Header {...props}/>
-  <SideNav {...props}/>
-  <div className="app-body">
-    <AddAnnouncement {...props}/>
-  </div>
-<Footer {...props}/>
-</div>
-</div>
-</React.Fragment>
-)}
-/>
+      <Route
+        exact
+        path={'/announcement'}
+        render={(props) => (
+          <React.Fragment>
+            <div id="app">
+              <div class="main-wrapper main-wrapper-1">
+                <Header {...props} />
+                <SideNav {...props} />
+                <div className="app-body">
+                  <AddAnnouncement {...props} />
+                </div>
+                <Footer {...props} />
+              </div>
+            </div>
+          </React.Fragment>
+        )}
+      />
 
-<Route
-  exact
-  path={'/assignTrip'}
-  render={(props) => (
-    <React.Fragment>
-        <div id="app">
-        <div class="main-wrapper main-wrapper-1">
-      <Header {...props}/>
-      <SideNav {...props}/>
-      <div className="app-body">
-        <AssignTripToVendor {...props} />
-      </div>
-    <Footer {...props}/>
-    </div>
-    </div>
-    </React.Fragment>
-  )}
-/>
-
-
-<Route
-  exact
-  path={'/drivers'}
-  render={(props) => (
-    <React.Fragment>
-        <div id="app">
-        <div class="main-wrapper main-wrapper-1">
-      <Header {...props}/>
-      <SideNav {...props}/>
-      <div className="app-body">
-        <AddDrivers {...props} />
-      </div>
-    <Footer {...props}/>
-    </div>
-    </div>
-    </React.Fragment>
-  )}
-/>
+      <Route
+        exact
+        path={'/assignTrip'}
+        render={(props) => (
+          <React.Fragment>
+            <div id="app">
+              <div class="main-wrapper main-wrapper-1">
+                <Header {...props} />
+                <SideNav {...props} />
+                <div className="app-body">
+                  <AssignTripToVendor {...props} />
+                </div>
+                <Footer {...props} />
+              </div>
+            </div>
+          </React.Fragment>
+        )}
+      />
 
 
-<Route
-  exact
-  path={'/cabs'}
-  render={(props) => (
-    <React.Fragment>
-        <div id="app">
-        <div class="main-wrapper main-wrapper-1">
-      <Header {...props}/>
-      <SideNav {...props}/>
-      <div className="app-body">
-        <AddCabs {...props} />
-      </div>
-    <Footer {...props}/>
-    </div>
-    </div>
-    </React.Fragment>
-  )}
-/>
+      <Route
+        exact
+        path={'/drivers'}
+        render={(props) => (
+          <React.Fragment>
+            <div id="app">
+              <div class="main-wrapper main-wrapper-1">
+                <Header {...props} />
+                <SideNav {...props} />
+                <div className="app-body">
+                  <AddDrivers {...props} />
+                </div>
+                <Footer {...props} />
+              </div>
+            </div>
+          </React.Fragment>
+        )}
+      />
 
 
-<Route
+      <Route
+        exact
+        path={'/cabs'}
+        render={(props) => (
+          <React.Fragment>
+            <div id="app">
+              <div class="main-wrapper main-wrapper-1">
+                <Header {...props} />
+                <SideNav {...props} />
+                <div className="app-body">
+                  <AddCabs {...props} />
+                </div>
+                <Footer {...props} />
+              </div>
+            </div>
+          </React.Fragment>
+        )}
+      />
+
+
+      <Route
         exact
         path={'/user'}
         render={(props) => (
           <React.Fragment>
-             <div id="app">
-             <div class="main-wrapper main-wrapper-1">
-            <Header {...props}/>
-            <SideNav {...props}/>
-            <div className="app-body">
-             <Addusers {...props}/>
+            <div id="app">
+              <div class="main-wrapper main-wrapper-1">
+                <Header {...props} />
+                <SideNav {...props} />
+                <div className="app-body">
+                  <Addusers {...props} />
+                </div>
+                <Footer {...props} />
+              </div>
             </div>
-          <Footer {...props}/>
-          </div>
-          </div>
           </React.Fragment>
         )}
       />
 
-<Route
+      <Route
         exact
         path={'/vendar'}
         render={(props) => (
           <React.Fragment>
-             <div id="app">
-             <div class="main-wrapper main-wrapper-1">
-            <Header {...props}/>
-            <SideNav {...props}/>
-            <div className="app-body">
-             <AddVendar {...props}/>
+            <div id="app">
+              <div class="main-wrapper main-wrapper-1">
+                <Header {...props} />
+                <SideNav {...props} />
+                <div className="app-body">
+                  <AddVendar {...props} />
+                </div>
+                <Footer {...props} />
+              </div>
             </div>
-          <Footer {...props}/>
-          </div>
-          </div>
           </React.Fragment>
         )}
       />
 
 
-<Route
+      <Route
         exact
         path={'/country'}
         render={(props) => (
           <React.Fragment>
-             <div id="app">
-             <div class="main-wrapper main-wrapper-1">
-            <Header {...props}/>
-            <SideNav {...props}/>
-            <div className="app-body">
-             <AddCountry {...props}/>
+            <div id="app">
+              <div class="main-wrapper main-wrapper-1">
+                <Header {...props} />
+                <SideNav {...props} />
+                <div className="app-body">
+                  <AddCountry {...props} />
+                </div>
+                <Footer {...props} />
+              </div>
             </div>
-          <Footer {...props}/>
-          </div>
-          </div>
           </React.Fragment>
         )}
       />
 
 
-<Route
+      <Route
         exact
         path={'/state'}
         render={(props) => (
           <React.Fragment>
-             <div id="app">
-             <div class="main-wrapper main-wrapper-1">
-            <Header {...props}/>
-            <SideNav {...props}/>
-            <div className="app-body">
-             <AddState {...props}/>
+            <div id="app">
+              <div class="main-wrapper main-wrapper-1">
+                <Header {...props} />
+                <SideNav {...props} />
+                <div className="app-body">
+                  <AddState {...props} />
+                </div>
+                <Footer {...props} />
+              </div>
             </div>
-          <Footer {...props}/>
-          </div>
-          </div>
           </React.Fragment>
         )}
       />
 
-<Route
+      <Route
         exact
         path={'/city'}
         render={(props) => (
           <React.Fragment>
-             <div id="app">
-             <div class="main-wrapper main-wrapper-1">
-            <Header {...props}/>
-            <SideNav {...props}/>
-            <div className="app-body">
-             <Addcity {...props}/>
+            <div id="app">
+              <div class="main-wrapper main-wrapper-1">
+                <Header {...props} />
+                <SideNav {...props} />
+                <div className="app-body">
+                  <Addcity {...props} />
+                </div>
+                <Footer {...props} />
+              </div>
             </div>
-          <Footer {...props}/>
-          </div>
-          </div>
           </React.Fragment>
         )}
       />
 
-<Route
+      <Route
         exact
         path={'/trip'}
         render={(props) => (
           <React.Fragment>
-             <div id="app">
-             <div class="main-wrapper main-wrapper-1">
-            <Header {...props}/>
-            <SideNav {...props}/>
-            <div className="app-body">
-             <AddTrips {...props}/>
+            <div id="app">
+              <div class="main-wrapper main-wrapper-1">
+                <Header {...props} />
+                <SideNav {...props} />
+                <div className="app-body">
+                  <AddTrips {...props} />
+                </div>
+                <Footer {...props} />
+              </div>
             </div>
-          <Footer {...props}/>
-          </div>
-          </div>
           </React.Fragment>
         )}
       />
 
-<Route
+      <Route
         exact
         path={'/activetrip'}
         render={(props) => (
           <React.Fragment>
-             <div id="app">
-             <div class="main-wrapper main-wrapper-1">
-            <Header {...props}/>
-            <SideNav {...props}/>
-            <div className="app-body">
-             <ActiveTrips {...props}/>
+            <div id="app">
+              <div class="main-wrapper main-wrapper-1">
+                <Header {...props} />
+                <SideNav {...props} />
+                <div className="app-body">
+                  <ActiveTrips {...props} />
+                </div>
+                <Footer {...props} />
+              </div>
             </div>
-          <Footer {...props}/>
-          </div>
-          </div>
           </React.Fragment>
         )}
       />
 
-<Route
-exact
-path={'/wallet'}
-render={(props) => (
-  <React.Fragment>
-      <div id="app">
-      <div class="main-wrapper main-wrapper-1">
-    <Header {...props}/>
-    <SideNav {...props}/>
-    <div className="app-body">
-      <AddWalletAmount {...props}/>
-    </div>
-  <Footer {...props}/>
-  </div>
-  </div>
-  </React.Fragment>
-)}
-/>
+      <Route
+        exact
+        path={'/wallet'}
+        render={(props) => (
+          <React.Fragment>
+            <div id="app">
+              <div class="main-wrapper main-wrapper-1">
+                <Header {...props} />
+                <SideNav {...props} />
+                <div className="app-body">
+                  <AddWalletAmount {...props} />
+                </div>
+                <Footer {...props} />
+              </div>
+            </div>
+          </React.Fragment>
+        )}
+      />
 
 
-   
 
- </BrowserRouter>
-    )
 
-    
-          }
+    </BrowserRouter>
+  )
+
+
+}
