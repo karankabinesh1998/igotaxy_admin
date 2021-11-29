@@ -101,13 +101,18 @@ function PaymentPage({ loginToken, amountUser , userDetails }) {
     
     return displayRazorpay();
   }, [])
+
+  const goBackToApp =async()=>{
+    window.location.href='igotaxi://app';
+  }
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>Recharge your wallet! Get More Trips !</p>
-        <button className="btn btn-success" onClick={displayRazorpay}>
-          Pay ₹{amountUser}
+        <button className="btn btn-success" onClick={goBackToApp}>
+          Go Back To igotaxi Application
         </button>
       </header>
     </div>
