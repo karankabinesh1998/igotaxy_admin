@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import logo from "./ad_logo.jpg";
 import "./App.css";
 import "./style1.css"
 import http from "../Middleware/http";
 import { ACCESS_POINT } from '../config';
+import swal from "sweetalert";
 
-
-function paymentPage({ loginToken, amountUser }) {
+function PaymentPage({ loginToken, amountUser , userDetails }) {
   function loadScript(src) {
     return new Promise((resolve) => {
       const script = document.createElement("script");
@@ -35,7 +35,6 @@ function paymentPage({ loginToken, amountUser }) {
 
     formdata.append("login_token", loginToken)
     formdata.append("amount", amountUser)
-    // const result = await axios.post("http://localhost:5001/admin/payment");
     const result = await http.post(`${ACCESS_POINT}/admin/payment`, formdata, {
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -65,32 +64,43 @@ function paymentPage({ loginToken, amountUser }) {
         formdata.append("razorpaySignature", response.razorpay_signature)
         formdata.append("login_token", loginToken)
         formdata.append("amount",amountUser)
-        // console.log(data);
         const result = await await http.post(`${ACCESS_POINT}/admin/payment/success`, formdata, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
         });
-        console.log(result);
-        alert(result.data.msg);
+        if(result.data.msg=='success'){
+          swal({
+            title: "Congratulations!",
+            text: `your amount of Rs.${amountUser} has been successfully added to your wallet`,
+            icon: "success",
+            button: "Ok",
+          });
+          window.location.href='igotaxi://app';
+        }else{
+          swal(`Recharge failed!!!!`)
+          window.location.href='igotaxi://app';
+        }
       },
       prefill: {
-        name: "Soumya Dey",
-        email: "SoumyaDey@example.com",
-        contact: "9999999999",
+        name: userDetails[0].username,
+        email: userDetails[0].email_id,
+        contact: userDetails[0].mobile,
       },
       notes: {
-        address: "Soumya Dey Corporate Office",
+        address: userDetails[0].address,
       },
       theme: {
         color: "#ce3232",
       },
     };
-    console.log(options, "options")
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
   }
-
+  useEffect(() => {
+    
+    return displayRazorpay();
+  }, [])
   return (
     <div className="App">
       <header className="App-header">
@@ -105,4 +115,4 @@ function paymentPage({ loginToken, amountUser }) {
   );
 }
 
-export default paymentPage;
+export default PaymentPage;

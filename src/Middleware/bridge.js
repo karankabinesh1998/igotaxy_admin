@@ -219,13 +219,6 @@ const TripsJson = async () => {
   return result;
 };
 
-const TripsJson11 = async () => {
-  const result = await http.get(`${ACCESS_POINT}/admin/OTPchecksadfsf`);
-  console.log(result);
-  return result;
-};
-
-TripsJson11()
 
 export default {
   TripsData,
