@@ -49,7 +49,7 @@ function PaymentPage({ loginToken, amountUser , userDetails }) {
     const { id: order_id, currency } = result.data;
 
     const options = {
-      key: `${process.env.REACT_APP_TESTRAZORPAY_KEY_ID}`, // Enter the Key ID generated from the Dashboard
+      key: `${process.env.REACT_APP_RAZORPAY_KEY_ID}`, // Enter the Key ID generated from the Dashboard
       amount: amountUser.toString(),
       currency: currency,
       name: "I Go Taxi",
@@ -69,17 +69,25 @@ function PaymentPage({ loginToken, amountUser , userDetails }) {
             'Content-Type': 'multipart/form-data',
           },
         });
-        if(result.data.msg=='success'){
+        console.log(result,"result===>")
+        if (result.data.msg == 'success') {
           swal({
             title: "Congratulations!",
             text: `your amount of Rs.${amountUser} has been successfully added to your wallet`,
             icon: "success",
             button: "Ok",
           });
-          window.location.href='igotaxi://app';
-        }else{
-          swal(`Recharge failed!!!!`)
-          window.location.href='igotaxi://app';
+          // window.location.href='igotaxi://app';
+          window.location.replace('igotaxi://app');
+        } else {
+          swal(`Recharge failed , Try Again Later!!!!`)
+          swal({
+            title: "Sorry!",
+            text: `your amount of Rs.${amountUser} has been Failed added.`,
+            icon: "danger",
+            button: "Ok",
+          });
+          window.location.replace('igotaxi://app')
         }
       },
       prefill: {
@@ -103,7 +111,7 @@ function PaymentPage({ loginToken, amountUser , userDetails }) {
   }, [])
 
   const goBackToApp =async()=>{
-    window.location.href='igotaxi://app';
+    window.location.replace('igotaxi://app');
   }
 
   return (
@@ -111,7 +119,7 @@ function PaymentPage({ loginToken, amountUser , userDetails }) {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>Recharge your wallet! Get More Trips !</p>
-        <button className="btn btn-success" onClick={goBackToApp}>
+        <button type="button" className="btn btn-success" onClick={goBackToApp}>
           Go Back To igotaxi Application
         </button>
       </header>

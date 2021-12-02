@@ -1,89 +1,91 @@
 import React, { Component } from 'react';
-import {AiOutlineMenu} from  "react-icons/ai";
-import {FiMail,FiAlignJustify} from "react-icons/fi";
-import {BiFullscreen,BiBell} from "react-icons/bi";
+import { AiOutlineMenu } from "react-icons/ai";
+import { FiMail, FiAlignJustify } from "react-icons/fi";
+import { BiFullscreen, BiBell } from "react-icons/bi";
 import { ACCESS_POINT } from '../config/index';
+import bridge from '../Middleware/bridge';
 
 class Header extends Component {
-  constructor(props)
-  {
-      super(props)
+  constructor(props) {
+    super(props)
+    {
+      this.state =
       {
-          this.state=
-          {
-            Username:'',
-           currentDate:'',
-           Userdetails : null ,
-           Image:{ 
-           width: "50%",
+        Username: '',
+        currentDate: '',
+        Userdetails: null,
+        Image: {
+          width: "50%",
           height: "86px",
           marginTop: "3px",
-          marginLeft: "-90px"}
-           
-          }
+          marginLeft: "-90px"
+        }
       }
+    }
   }
 
-  async componentDidMount(){
+  async componentDidMount() {
+    let data = JSON.parse(localStorage.getItem("Userdetails"));
+    const login_token = localStorage.getItem('token');
+    const checkLogin = await bridge.getFreedom(
+      `login_token`,
+      `tbl_user_web`,
+      `login_token='${login_token}' and status =1 and userType = 1`,
+      1,
+      1
+    );
+    if(checkLogin.data.length && Array.isArray(checkLogin.data)){
+      
+      this.setState({ Userdetails: data[0], Username: data[0].username, Profilepic: data[0].profile_dp })
+    }else{
+      localStorage.removeItem('Userdetails');
+      localStorage.removeItem('token');
+      window.location.href = '/';
+    }
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
 
-    //  let result = await Bridge.check();
-      //console.log(result)
-      let data = JSON.parse(localStorage.getItem("Userdetails"));
-      if(data !== null){
-        //  console.log(data)
-         this.setState({Userdetails:data[0],Username:data[0].name,Profilepic:data[0].profile_dp})
-      }else{
-        window.location.href='/';
-      }
-       window.scrollTo({
-           top: 0,
-           behavior: "smooth"
-         });
-   
-   }
-   
-   CheckActive=(e)=>{
-       //console.log( e.target.className );
-      
-   }
-   
-   Logout = async()=>{
-     // localStorage.clear();
-     localStorage.removeItem('Userdetails');
-      
-     window.location.href='/'
-   }
+  Logout = async () => {
+    const logOut = await bridge.logoutUser();
+    if(logOut.data){
+    localStorage.removeItem('Userdetails');
+    localStorage.removeItem('token');
+    window.location.href = '/';
+    }
+  }
+
   render() {
     return (
       <React.Fragment>
-      <div class="navbar-bg"></div>
-      <nav class="navbar navbar-expand-lg main-navbar sticky">
-        <div class="form-inline mr-auto">
-          <ul class="navbar-nav mr-3">
-            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg
-									collapse-btn"> 
-                   <FiAlignJustify size={24} style={{color:'black'}}/>
-                   </a></li>
-            <li><a href="#" class="nav-link nav-link-lg fullscreen-btn">
-                {/* <i data-feather="maximize"></i> */}
-                <BiFullscreen  size={24} style={{color:'black'}}/>
+        <div class="navbar-bg"></div>
+        <nav class="navbar navbar-expand-lg main-navbar sticky">
+          <div class="form-inline mr-auto">
+            <ul class="navbar-nav mr-3">
+              <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg
+									collapse-btn">
+                <FiAlignJustify size={24} style={{ color: 'black' }} />
               </a></li>
-            <li>
-              <form class="form-inline mr-auto">
-                <div class="search-element">
-                  <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="200"/>
-                  <button class="btn" type="submit">
-                    <i class="fas fa-search"></i>
-                  </button>
-                </div>
-              </form>
-            </li>
-          </ul>
-        </div>
-        <ul class="navbar-nav navbar-right">
-          <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
+              <li><a href="#" class="nav-link nav-link-lg fullscreen-btn">
+                <BiFullscreen size={24} style={{ color: 'black' }} />
+              </a></li>
+              <li>
+                <form class="form-inline mr-auto">
+                  <div class="search-element">
+                    <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="200" />
+                    <button class="btn" type="submit">
+                      <i class="fas fa-search"></i>
+                    </button>
+                  </div>
+                </form>
+              </li>
+            </ul>
+          </div>
+          <ul class="navbar-nav navbar-right">
+            {/* <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
               class="nav-link nav-link-lg message-toggle">
-                {/* <i data-feather="mail"></i> */}
                 <FiMail size={24} style={{color:'black'}}/>
               <span class="badge headerBadge1">
                 6 </span> </a>
@@ -146,8 +148,7 @@ class Header extends Component {
           </li>
           <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
               class="nav-link notification-toggle nav-link-lg">
-                {/* <i data-feather="bell" class="bell"></i> */}
-                <BiBell size={24} style={{color:'black'}}/>
+               <BiBell size={24} style={{color:'black'}}/>
             </a>
             <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
               <div class="dropdown-header">
@@ -194,31 +195,35 @@ class Header extends Component {
                 <a href="#">View All <i class="fas fa-chevron-right"></i></a>
               </div>
             </div>
-          </li>
-          <li class="dropdown"><a href="#" data-toggle="dropdown"
-              class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src={`${ACCESS_POINT}/admin/filename/${this.state.Profilepic}`}
-                class="user-img-radious-style" /> <span class="d-sm-none d-lg-inline-block"></span></a>
-            <div class="dropdown-menu dropdown-menu-right pullDown">
-              <div class="dropdown-title">Hello {this.state.Username}</div>
-              <a href="profile.html" class="dropdown-item has-icon"> <i class="far
+          </li> */}
+            <li class="dropdown"><a href="#" data-toggle="dropdown"
+              class="nav-link dropdown-toggle nav-link-lg nav-link-user"> 
+              <img alt="image" src={`${ACCESS_POINT}/admin/filename/${this.state.Profilepic}`}
+                class="user-img-radious-style" />
+                 <span class="d-sm-none d-lg-inline-block"></span></a>
+              <div class="dropdown-menu dropdown-menu-right pullDown">
+                <div class="dropdown-title">Hello {this.state.Username}</div>
+                <a href="#" class="dropdown-item has-icon"> <i class="far
 										fa-user"></i> Profile
-              </a> <a href="timeline.html" class="dropdown-item has-icon"> <i class="fas fa-bolt"></i>
-                Activities
-              </a> <a href="#" class="dropdown-item has-icon"> <i class="fas fa-cog"></i>
-                Settings
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" onClick={this.Logout} class="dropdown-item has-icon text-danger"> <i class="fas fa-sign-out-alt"></i>
-                Logout
-              </a>
-            </div>
-          </li>
-        </ul>
-      </nav>
-           
-        </React.Fragment>
-        
-      
+                </a> 
+                {/* <a href="timeline.html" class="dropdown-item has-icon"> <i class="fas fa-bolt"></i>
+                  Activities
+                </a> 
+                <a href="#" class="dropdown-item has-icon"> <i class="fas fa-cog"></i>
+                  Settings
+                </a> */}
+                <div class="dropdown-divider"></div>
+                <a href="#" onClick={this.Logout} class="dropdown-item has-icon text-danger"> <i class="fas fa-sign-out-alt"></i>
+                  Logout
+                </a>
+              </div>
+            </li>
+          </ul>
+        </nav>
+
+      </React.Fragment>
+
+
     );
   }
 }

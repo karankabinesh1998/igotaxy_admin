@@ -4,9 +4,7 @@ import { Alert } from "reactstrap";
 import Datatable from "../../Component/Datatable/Datatable";
 import swal from 'sweetalert';
 import '../style1.css';
-// import '../../../Component/loader.css'
 import ModelWindow from "../../Component/Model";
-//import AddUserModel from '../ModelPages/AddUserModel';
 
 
 class Addusers extends React.Component
@@ -245,7 +243,6 @@ deletion =async(value)=>{
                     id
                   );
                   if (result) {
-                      console.log(result);
                     this.setState({ Data });
                     swal("Poof! Your Data has been deleted!", {
                         icon: "success",
@@ -262,7 +259,6 @@ deletion =async(value)=>{
       this.setState({ data: previousData });
       console.log(error);
     }
-    
 }
 
 async componentDidMount(){
@@ -274,7 +270,7 @@ async componentDidMount(){
         1,
         `id DESC`,
     );
-    if(result.data.length){
+   if(Array.isArray(result.data) && result.data.length){
         this.setState({Data:result.data})
     }else{
       this.setState({Data:[]})
@@ -282,7 +278,6 @@ async componentDidMount(){
 }catch(error){
     console.log(error);
 }
-   //console.log(result);
 }    
 
 

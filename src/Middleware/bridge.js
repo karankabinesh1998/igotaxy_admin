@@ -1,12 +1,7 @@
-// import { data } from 'jquery';
 import { ACCESS_POINT } from '../config';
-
 import http from "./http";
+const apiToken = localStorage.getItem('token');
 
-const check = async () => {
-  const result = await http.get(`${ACCESS_POINT}/cmsContent/test`);
-  return result;
-};
 
 const getFreedom = async (
   select,
@@ -23,15 +18,33 @@ const getFreedom = async (
   value.orderby = orderby;
   const result = await http.put(
     ACCESS_POINT + `/admin/getFullFreedom/getFreedom`,
-    value
+    value,{
+      headers:{
+        authorization: apiToken,
+        Accept: 'application/json',
+      }
+    }
   );
-  //console.log(result)
   if (result.data) {
     return result;
   } 
-
 };
 
+const logoutUser = async()=>{
+  let value={};
+  const logout = await http.put(
+    ACCESS_POINT + `/admin/logout`,
+    value,{
+      headers:{
+        authorization: apiToken,
+        Accept: 'application/json',
+      }
+    }
+  );
+  if (logout.data) {
+    return logout;
+  } 
+}
 
 const AddMaster = async (t,data,id = null) => {
   //console.log(data)
@@ -240,5 +253,6 @@ export default {
     AddDriverdata,
     EditDriverdata,
     Addcabs,
-    Add_Announcement
+    Add_Announcement,
+    logoutUser
 }

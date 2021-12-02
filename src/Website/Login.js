@@ -60,57 +60,50 @@ class LoginPage extends Component {
 
 
    
-       submit =async()=>{
-           // alert(1);
-           const { username,password, errorusername, errorpassowrd }=this.state;
-            let mailcheck = await this.ValidateEmail(username);
-           //  console.log(mailcheck)
-           if(!username){
-             this.setState({errorusername:"Please fill in your email"})
-             return false
-           }else if(mailcheck == 0){
-             this.setState({errorusername:"Please Enter your Valid email"})
-             return false
-           }
-           else{
-             this.setState({errorusername:""})
-           }
-           
-           if(!password){
-             this.setState({errorpassowrd : "please fill in your password" })
-             return false;
-           }else{
-             this.setState({errorpassowrd : "" })
-           }
+  submit = async () => {
+    // alert(1);
+    const { username, password, errorusername, errorpassowrd } = this.state;
+    let mailcheck = await this.ValidateEmail(username);
+    //  console.log(mailcheck)
+    if (!username) {
+      this.setState({ errorusername: "Please fill in your email" })
+      return false
+    } else if (mailcheck == 0) {
+      this.setState({ errorusername: "Please Enter your Valid email" })
+      return false
+    }
+    else {
+      this.setState({ errorusername: "" })
+    } 
 
-           const formData=new FormData();
+    if (!password) {
+      this.setState({ errorpassowrd: "please fill in your password" })
+      return false;
+    } else {
+      this.setState({ errorpassowrd: "" })
+    }
 
-           formData.append("email_id",username)
-           formData.append("password",password) 
+    const formData = new FormData();
 
-           
-   
-             let result = await Bridge.LoginAdmin(formData)
-
-             console.log(result);
-               if(result.data.length){
-                  console.log(result);
-                   localStorage.setItem("Userdetails", JSON.stringify(result.data) );
-                   window.location.href='/dashboard'; 
-               }else if(result.data == false){
-                  this.setState({
-                   alertVisible:true,
-                   color: "danger",
-                   textALert:"Wrong Email or Password"
-                  })
-                  setTimeout(()=>this.setState({alertVisible: false}), 3000);
-               }
-       }
+    formData.append("email_id", username);
+    formData.append("password", password);
+    let result = await Bridge.LoginAdmin(formData);
+    if (result.data.length) {
+      localStorage.setItem("Userdetails", JSON.stringify(result.data));
+      localStorage.setItem("token",result.data[0].login_token)
+      window.location.href = '/dashboard';
+    } else if (result.data == false) {
+      this.setState({
+        alertVisible: true,
+        color: "danger",
+        textALert: "Wrong Email or Password"
+      })
+      setTimeout(() => this.setState({ alertVisible: false }), 3000);
+    }
+  }
    
        submitEnter= async(e)=>{
          if (e.key === 'Enter') {
-          // this.setState({value:e.target.value})
-         // alert("k")
          this.submit()
          }
        }
@@ -191,8 +184,6 @@ class LoginPage extends Component {
               </div>
               <div class="form-group">
                 <div class="custom-control custom-checkbox">
-                  {/* <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me"/> */}
-                  {/* <label class="custom-control-label" for="remember-me">Remember Me</label> */}
                 </div>
               </div>
               <div class="form-group">
@@ -201,25 +192,9 @@ class LoginPage extends Component {
                 </button>
               </div>
             </div>
-            {/* <div class="text-center mt-4 mb-3">
-              <div class="text-job text-muted">Login With Social</div>
-            </div>
-            <div class="row sm-gutters">
-              <div class="col-6">
-                <a class="btn btn-block btn-social btn-facebook">
-                  <span class="fab fa-facebook"></span> Facebook
-                </a>
-              </div>
-              <div class="col-6">
-                <a class="btn btn-block btn-social btn-twitter">
-                  <span class="fab fa-twitter"></span> Twitter
-                </a>
-              </div>
-            </div> */}
           </div>
         </div>
         <div class="mt-5 text-muted text-center">
-          {/* Don't have an account? <a href="auth-register.html">Create One</a> */}
         </div>
       </div>
     </div>
