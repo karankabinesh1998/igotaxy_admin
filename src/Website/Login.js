@@ -91,6 +91,7 @@ class LoginPage extends Component {
     if (result.data.length) {
       localStorage.setItem("Userdetails", JSON.stringify(result.data));
       localStorage.setItem("token",result.data[0].login_token)
+      console.log(result.data)
       window.location.href = '/dashboard';
     } else if (result.data == false) {
       this.setState({

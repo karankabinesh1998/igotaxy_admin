@@ -29,8 +29,8 @@ class Header extends Component {
     const login_token = localStorage.getItem('token');
     const checkLogin = await bridge.getFreedom(
       `login_token`,
-      `tbl_user_web`,
-      `login_token='${login_token}' and status =1 and userType = 1`,
+      `tbl_login_session`,
+      `login_token='${login_token}'`,
       1,
       1
     );

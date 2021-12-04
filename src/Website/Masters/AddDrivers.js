@@ -75,6 +75,11 @@ class AddDrivers extends React.Component
                         accessor: "status",
                         Cell: (d) => this.Status(d),
                       },
+                      {  
+                        Header:"Rating",
+                        accessor:"rating",
+                        Cell: (d) => this.changeRatingStatus(d),
+                        },
                      {
                         Header: "Edit",
                         accessor: "edit",
@@ -91,6 +96,48 @@ class AddDrivers extends React.Component
         }
 
     }
+
+    changeRatingStatus=(d)=>{
+        return (
+          <center>
+        <button
+          type="button"
+          className="btn btn-success"
+          onClick={() => this.changeRatingVendor(d)}
+        >
+          {d.original.rating == null ? 0 : d.original.rating}
+        </button>
+        </center>
+      );
+      }
+
+    changeRatingVendor=async(d)=>{
+        swal({
+          text: 'Edit Ratings',
+          content: "input",
+          button: {
+            text: "Update",
+            closeModal: false,
+          },
+        })
+        .then(name => {
+          if (!name) throw null;
+          return  bridge.updateMaster(
+            `tbl_vendor_drivers`,
+            d.original.id,
+            { rating : name }
+          ) ;
+        })
+        .then(results => {
+          const listVendor = [...this.state.FullData];
+          listVendor[d.index].rating = results.data[0].rating;
+          this.setState({
+            Data:listVendor
+          })
+          swal(`Rating Updated for ${d.original.username} Successfully `)
+          // return results.json();
+        })
+      }
 
     Documnets=(e)=>{
         return(
@@ -603,12 +650,21 @@ deletion =async(value)=>{
             indexStyle={{color:"black",fontWeight: '500'}}
             ButtonBody = {
                 <React.Fragment>
+           <h3>Driver Image</h3>
+                    
+           <div className="row form-group">
+                <div className="col-sm-2" />
+                <div className="col-sm-6">
+                  <img style={{width:'100%',height:'250px'}} alt="Upload the image" src={`${ACCESS_POINT}/admin/vendarfile/${this.state.ViewDocData.driver_image}/${this.state.ViewDocData.vendor}`} />
+                </div>
+                <div className="col-sm-2" />
+            </div>
            <h3>Driving Licence</h3>
            <p>Driving Licence Front</p>
            <div className="row form-group">
                 <div className="col-sm-3" />
                 <div className="col-sm-6">
-                  <img style={{width:'100%',height:'50%'}} alt="Upload the image" src={`${ACCESS_POINT}/admin/vendarfile/${this.state.ViewDocData.driving_license_front}/${this.state.ViewDocData.vendor}`} />
+                  <img style={{width:'100%',height:'250px'}} alt="Upload the image" src={`${ACCESS_POINT}/admin/vendarfile/${this.state.ViewDocData.driving_license_front}/${this.state.ViewDocData.vendor}`} />
                 </div>
                 <div className="col-sm-3" />
             </div>
@@ -617,16 +673,16 @@ deletion =async(value)=>{
            <div className="row form-group">
                 <div className="col-sm-3" />
                 <div className="col-sm-6">
-                  <img style={{width:'100%',height:'50%'}} alt="Upload the image" src={`${ACCESS_POINT}/admin/vendarfile/${this.state.ViewDocData.driving_license_back}/${this.state.ViewDocData.vendor}`} />
+                  <img style={{width:'100%',height:'250px'}} alt="Upload the image" src={`${ACCESS_POINT}/admin/vendarfile/${this.state.ViewDocData.driving_license_back}/${this.state.ViewDocData.vendor}`} />
                 </div>
                 <div className="col-sm-3" />
             </div>
 
-            <p>Police Verify certificate</p>
+            <h3>Police Verify certificate</h3>
            <div className="row form-group">
                 <div className="col-sm-3" />
                 <div className="col-sm-6">
-                  <img style={{width:'100%',height:'50%'}} alt="Upload the image" src={`${ACCESS_POINT}/admin/vendarfile/${this.state.ViewDocData.police_verify}/${this.state.ViewDocData.vendor}`} />
+                  <img style={{width:'100%',height:'250px'}} alt="Upload the image" src={`${ACCESS_POINT}/admin/vendarfile/${this.state.ViewDocData.police_verify}/${this.state.ViewDocData.vendor}`} />
                 </div>
                 <div className="col-sm-3" />
             </div>

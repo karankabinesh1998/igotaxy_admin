@@ -71,6 +71,11 @@ class AddCabs extends React.Component
                         accessor: "status",
                         Cell: (d) => this.Status(d),
                       },
+                      {  
+                        Header:"Rating",
+                        accessor:"rating",
+                        Cell: (d) => this.changeRatingStatus(d),
+                        },
                     //  {
                     //     Header: "Edit",
                     //     accessor: "edit",
@@ -98,6 +103,47 @@ class AddCabs extends React.Component
         )
     }
 
+    changeRatingStatus=(d)=>{
+        return (
+          <center>
+        <button
+          type="button"
+          className="btn btn-success"
+          onClick={() => this.changeRatingVendor(d)}
+        >
+          {d.original.rating == null ? 0 : d.original.rating}
+        </button>
+        </center>
+      );
+      }
+
+    changeRatingVendor=async(d)=>{
+        swal({
+          text: 'Edit Ratings',
+          content: "input",
+          button: {
+            text: "Update",
+            closeModal: false,
+          },
+        })
+        .then(name => {
+          if (!name) throw null;
+          return  bridge.updateMaster(
+            `tbl_vendor_cabs`,
+            d.original.id,
+            { rating : name }
+          ) ;
+        })
+        .then(results => {
+          const listVendor = [...this.state.FullData];
+          listVendor[d.index].rating = results.data[0].rating;
+          this.setState({
+            Data:listVendor
+          })
+          swal(`Rating Updated for ${d.original.username} Successfully `)
+          // return results.json();
+        })
+      }
 
     ViewDoc=async(e)=>{
         console.log(e.original);

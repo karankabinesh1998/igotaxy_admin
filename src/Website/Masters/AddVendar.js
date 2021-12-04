@@ -6,12 +6,9 @@ import http from "../../Middleware/http";
 import Datatable from "../../Component/Datatable/Datatable";
 import swal from 'sweetalert';
 import '../style1.css';
-// import '../../../Component/loader.css'
 import ModelWindow from "../../Component/Model";
 import Adddocument from '../ModelPages/Adddocument';
 import ViewDocument from '../ModelPages/Viewdocument'
-// import Progress from '../../Component/Progress';
-
 
 
 
@@ -47,12 +44,7 @@ class AddVendar extends React.Component
                     {
                       Header: "Mobile",
                       accessor: "mobile",
-                     //Cell: (d) => this.Image(d),
-                    },
-                    // {
-                    //     Header:"Email Id",
-                    //     accessor:"email_id"
-                    // },
+                     },
                     { 
                         Header:"login_status",
                         accessor:"login_status",
@@ -82,6 +74,11 @@ class AddVendar extends React.Component
                      accessor:"status",
                      Cell: (d) => this.Approvalstatus(d),
                      },
+                     {  
+                      Header:"Rating",
+                      accessor:"rating",
+                      Cell: (d) => this.changeRatingStatus(d),
+                      },
                      {
                         Header: "Edit",
                         accessor: "edit",
@@ -105,6 +102,47 @@ class AddVendar extends React.Component
         }
     }
 
+    changeRatingStatus=(d)=>{
+      return (
+        <center>
+      <button
+        type="button"
+        className="btn btn-success"
+        onClick={() => this.changeRatingVendor(d)}
+      >
+        {d.original.rating}
+      </button>
+      </center>
+    );
+    }
+
+    changeRatingVendor=async(d)=>{
+      swal({
+        text: 'Edit Ratings',
+        content: "input",
+        button: {
+          text: "Update",
+          closeModal: false,
+        },
+      })
+      .then(name => {
+        if (!name) throw null;
+        return  Bridge.updateMaster(
+          `tbl_user_web`,
+          d.original.id,
+          { rating : name }
+        ) ;
+      })
+      .then(results => {
+        const listVendor = [...this.state.Data];
+        listVendor[d.index].rating = results.data[0].rating;
+        this.setState({
+          Data:listVendor
+        })
+        swal(`Rating Updated for ${d.original.username} Successfully `)
+        // return results.json();
+      })
+    }
 
     Approvalstatus = (d)=>{
      /// console.log(d)
