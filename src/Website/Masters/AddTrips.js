@@ -27,6 +27,14 @@ class AddTrips extends React.Component
                 erroralternate_mobile:"",
                 checkstatus:false,
                 selectedcustomer:{},
+                includesExcludes:[
+                    {value:1,label:'Yes'},
+                    {value:0,label:'No'}
+                ],
+                night_pick_up:{},
+                night_drop_up:{},
+                toll_plaza:{},
+                parking:{},
                 errorselectedcustomer:"",
                 CustomerDetailsOptions:[],
                 TripTypeOption :[ {value:1,label:"One Way"} , { value:2 , label:"Round Trip"} ],
@@ -424,9 +432,35 @@ ScroolTop=async()=>{
       });
 }
 
+Handlesnight_pick_up=async(e)=>{
+    this.setState({
+        night_pick_up : e
+    })
+}
+
+Handlesnight_drop_up=async(e)=>{
+    this.setState({
+        night_drop_up : e
+    })
+}
+
+Handlestoll_plaza=async(e)=>{
+    this.setState({
+        toll_plaza : e
+    })
+}
+
+Handlesparking=async(e)=>{
+    this.setState({
+        parking : e
+    })
+}
+
 submit=async()=>{
-    const { username,mobile,alternate_mobile,trip_kms,trip_charges,email_id,address,selectedcustomer,selectedDropLocationOption,selectedPickupLocationOption,
-    selectedTripTypeOption,selectedcabTypeOption,checkstatus,extra_charge,pickupDate,dropDate,Userdetails} = this.state;
+    const { username, mobile, alternate_mobile, trip_kms, trip_charges, email_id, address, selectedcustomer, selectedDropLocationOption, selectedPickupLocationOption,
+        selectedTripTypeOption, selectedcabTypeOption, checkstatus, extra_charge, pickupDate, dropDate, Userdetails,
+        parking, toll_plaza, night_drop_up, night_pick_up
+    } = this.state;
     let mailcheck = await this.ValidateEmail(email_id);
 
     if(this.state.checkstatus==false){
@@ -437,7 +471,7 @@ submit=async()=>{
                 errorusername:"enter the username"
             })
             this.ScroolTop();
-            return false
+            return false;
      
         }else{
 
@@ -612,8 +646,20 @@ submit=async()=>{
     //     }
     // }
 
+if(Object.keys(selectedPickupLocationOption).length==0){
+    swal('Please select pick up location');
+    return;
+}
 
-   
+if(Object.keys(selectedDropLocationOption).length==0){
+    swal('Please select drop location');
+    return;
+}
+
+if(!this.state.pickupDate_new){
+    swal('Please select pickup date location');
+    return;
+}
 
     const formData=new FormData();
     let newcustomer = 0;
@@ -636,7 +682,11 @@ submit=async()=>{
     formData.append("trip_charges",trip_charges)
     formData.append("extra_charge",extra_charge)
     formData.append("admin_id",Userdetails[0].id)
-    formData.append("trip_status","active")
+    formData.append("trip_status","active");
+    formData.append("night_pick_up",night_pick_up.value == undefined ? 0 : night_pick_up.value );
+    formData.append("night_drop_up",night_drop_up.value == undefined ? 0 : night_drop_up.value );
+    formData.append("toll_plaza",toll_plaza.value == undefined ? 0 : toll_plaza.value );
+    formData.append("parking",parking.value == undefined ? 0 : parking.value );
 
 
 
@@ -1028,6 +1078,70 @@ name="extra_charge"/>
 </div>
 <div className="col-sm-3"> <span class="errormsg">{this.state.errorextra_charge}</span> </div>
 </div>
+
+{/* {} */}
+
+<div className="row form-group">
+<div className="col-sm-2"></div>
+<div className="col-sm-2">
+<label class="labell2">Night Pick-up</label>
+</div>
+<div className="col-sm-4">
+<SingleSelect
+options={this.state.includesExcludes}
+handleChange={d => this.Handlesnight_pick_up(d)}
+selectedService={this.state.night_pick_up}
+/>
+</div>
+<div className="col-sm-3"> <span class="errormsg">{this.state.errorcabTypeOption}</span> </div>
+</div>
+
+<div className="row form-group">
+<div className="col-sm-2"></div>
+<div className="col-sm-2">
+<label class="labell2">Night Drop</label>
+</div>
+<div className="col-sm-4">
+<SingleSelect
+options={this.state.includesExcludes}
+handleChange={d => this.Handlesnight_drop_up(d)}
+selectedService={this.state.night_drop_up}
+/>
+</div>
+<div className="col-sm-3"> <span class="errormsg">{this.state.errorcabTypeOption}</span> </div>
+</div>
+
+<div className="row form-group">
+<div className="col-sm-2"></div>
+<div className="col-sm-2">
+<label class="labell2">Toll-Plaza Charges</label>
+</div>
+<div className="col-sm-4">
+<SingleSelect
+options={this.state.includesExcludes}
+handleChange={d => this.Handlestoll_plaza(d)}
+selectedService={this.state.toll_plaza}
+/>
+</div>
+<div className="col-sm-3"> <span class="errormsg">{this.state.errorcabTypeOption}</span> </div>
+</div>
+
+<div className="row form-group">
+<div className="col-sm-2"></div>
+<div className="col-sm-2">
+<label class="labell2">Parking Charges</label>
+</div>
+<div className="col-sm-4">
+<SingleSelect
+options={this.state.includesExcludes}
+handleChange={d => this.Handlesparking(d)}
+selectedService={this.state.parking}
+/>
+</div>
+<div className="col-sm-3"> <span class="errormsg">{this.state.errorcabTypeOption}</span> </div>
+</div>
+
+{/*  */}
                 
     <div class="row form-group">
     <div className="col-sm-3"></div>
