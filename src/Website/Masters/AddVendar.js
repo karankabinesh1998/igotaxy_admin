@@ -46,6 +46,14 @@ class AddVendar extends React.Component
                       accessor: "mobile",
                      },
                      {
+                      Header: "Email",
+                      accessor: "email_id",
+                     },
+                     {
+                      Header: "Wallet",
+                      accessor: "wallet",
+                     },
+                     {
                       Header: "Password",
                       accessor: "password",
                      },
