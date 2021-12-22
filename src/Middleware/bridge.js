@@ -8,7 +8,8 @@ const getFreedom = async (
   tableName,
   condition,
   groupby = "id",
-  orderby = "id"
+  orderby = "id",
+  authtoken = null
 ) => {
   let value = {};
   value.select = select;
@@ -20,7 +21,7 @@ const getFreedom = async (
     ACCESS_POINT + `/admin/getFullFreedom/getFreedom`,
     value,{
       headers:{
-        authorization: apiToken,
+        authorization: authtoken ==null ? apiToken : authtoken,
         Accept: 'application/json',
       }
     }

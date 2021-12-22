@@ -31,7 +31,7 @@ class Addusers extends React.Component
                     {
                       Header: "Mobile",
                       accessor: "mobile",
-                     // Cell: (d) => this.Image(d),
+                     Cell: (d)=><p>{d.original?.mobile == "[object Object]" ? "" : d.original?.mobile }</p>,
                     },{
                         Header:"Email Id",
                         accessor:"email_id"

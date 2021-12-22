@@ -32,21 +32,22 @@ function PaymentPage({ loginToken, amountUser , userDetails }) {
     }
 
     let formdata = new FormData();
-
+    console.log(amountUser,'amm',loginToken,);
     formdata.append("login_token", loginToken)
-    formdata.append("amount", amountUser)
+    formdata.append("amount", amountUser);
+    
     const result = await http.post(`${ACCESS_POINT}/admin/payment`, formdata, {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        'Content-Type': 'application/json',
       },
     });
 
-
+    console.log(result)
     if (!result) {
       alert("Server error. Are you online?");
       return;
     }
-    const { id: order_id, currency } = result.data;
+    const { id: order_id, currency , amount } = result.data;
 
     const options = {
       key: `${process.env.REACT_APP_RAZORPAY_KEY_ID}`, // Enter the Key ID generated from the Dashboard

@@ -1041,7 +1041,6 @@ deletion =async(value)=>{
                 <div className="col-sm-8">
                 <Alert
                     className="badge-content"
-                    color="success"
                     isOpen={this.state.alertVisible}
                     toggle={this.onDismiss}
                     color={this.state.color}
