@@ -45,6 +45,11 @@ function PaymentPage({ loginToken, amountUser , userDetails }) {
     console.log(result)
     if (!result) {
       alert("Server error. Are you online?");
+      window.location.replace('igotaxi://app')
+      return;
+    }else if(Object.keys(result?.data).length==0){
+      alert("Server error.Please try after some time");
+      window.location.replace('igotaxi://app')
       return;
     }
     const { id: order_id, currency , amount } = result.data;

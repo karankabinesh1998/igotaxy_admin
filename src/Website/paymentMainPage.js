@@ -16,7 +16,7 @@ export default class paymentMainPage extends Component {
       `address,alternate_mobile,email_id,login_token,mobile,username`,
        `tbl_user_web`, `login_token = '${this.props.match.params.loginToken}'`, 1, 1,this.props.match.params.loginToken
     );
-    // console.log(this.props.match.params);
+    // console.log(this.props.match.params);  
     if (result.data.length) {
       this.setState({
         loginToken: this.props.match.params.loginToken,
