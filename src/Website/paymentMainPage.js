@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PaymentPage from './paymentPage';
 import Bridge from '../Middleware/bridge';
+import swal from 'sweetalert';
 
 export default class paymentMainPage extends Component {
   constructor(props) {

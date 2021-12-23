@@ -34,6 +34,7 @@ import ActiveTrips from '../Website/Masters/ActiveTrips';
 import AddAnnouncement from '../Website/Masters/AddAnnouncement';
 import Privacy_Policy from '../Website/Privacy_Policy';
 import PaymentMainPage from '../Website/paymentMainPage';
+import DashBoard from '../Website/Masters/DashBoard';
 // import Chat from '../Website/ChatPage/Chat';
 
 
@@ -93,7 +94,7 @@ export default function Routes() {
                 <Header {...props} />
                 <SideNav {...props} />
                 <div className="app-body">
-                  {/* <ChatRoom {...props}/> */}
+                  <DashBoard {...props}/>
                 </div>
                 <Footer {...props} />
               </div>

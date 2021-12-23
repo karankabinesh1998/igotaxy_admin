@@ -7,8 +7,8 @@ const getFreedom = async (
   select,
   tableName,
   condition,
-  groupby = "id",
-  orderby = "id",
+  groupby = null,
+  orderby = null,
   authtoken = null
 ) => {
   let value = {};
@@ -178,10 +178,10 @@ const CheckoutNotify = async (token) => {
   return result;
 };
 
-// const SendAssignedTripNotification = async (token) => {
-//   const result = await http.get(`${ACCESS_POINT}/admin/SendAssignedTripNotification/${token}`);
-//   return result;
-// };
+const DashBoardData = async (token) => {
+  const result = await http.get(`${ACCESS_POINT}/admin/dashBoardDetails`);
+  return result;
+};
 
 const SendAssignedTripNotification = async(data) =>{
   const result = await http.post(ACCESS_POINT + `/admin/SendAssignedTripNotification`,data,{
@@ -255,5 +255,6 @@ export default {
     EditDriverdata,
     Addcabs,
     Add_Announcement,
-    logoutUser
+    logoutUser,
+    DashBoardData
 }

@@ -42,7 +42,7 @@ function PaymentPage({ loginToken, amountUser , userDetails }) {
       },
     });
 
-    console.log(result)
+    console.log(result?.data?.order)
     if (!result) {
       alert("Server error. Are you online?");
       window.location.replace('igotaxi://app')
@@ -52,7 +52,9 @@ function PaymentPage({ loginToken, amountUser , userDetails }) {
       window.location.replace('igotaxi://app')
       return;
     }
-    const { id: order_id, currency , amount } = result.data;
+    const { id: order_id, currency , amount } = result?.data?.order;
+
+    const { username , email_id , mobile , address } = result?.data?.UserDetails;
 
     const options = {
       key: `${process.env.REACT_APP_RAZORPAY_KEY_ID}`, // Enter the Key ID generated from the Dashboard
@@ -69,40 +71,48 @@ function PaymentPage({ loginToken, amountUser , userDetails }) {
         formdata.append("razorpayOrderId", response.razorpay_order_id)
         formdata.append("razorpaySignature", response.razorpay_signature)
         formdata.append("login_token", loginToken)
-        formdata.append("amount",amountUser)
-        const result = await await http.post(`${ACCESS_POINT}/admin/payment/success`, formdata, {
+        formdata.append("amount", amountUser)
+
+         await http.post(`${ACCESS_POINT}/admin/payment/success`, formdata, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
-        });
-        console.log(result,"result===>")
-        if (result.data.msg == 'success') {
-          swal({
-            title: "Congratulations!",
-            text: `your amount of Rs.${amountUser} has been successfully added to your wallet`,
-            icon: "success",
-            button: "Ok",
-          });
-          // window.location.href='igotaxi://app';
-          window.location.replace('igotaxi://app');
-        } else {
-          swal(`Recharge failed , Try Again Later!!!!`)
-          swal({
-            title: "Sorry!",
-            text: `your amount of Rs.${amountUser} has been Failed added.`,
-            icon: "danger",
-            button: "Ok",
-          });
-          window.location.replace('igotaxi://app')
-        }
+        }).then(async (result) => {
+          console.log(result, "result===>")
+          if (result.data.msg == 'success') {
+            swal({
+              title: "Congratulations!",
+              text: `your amount of Rs.${amountUser} has been successfully added to your wallet`,
+              icon: "success",
+              button: "Ok",
+            });
+            // window.location.href='igotaxi://app';
+            window.location.replace('igotaxi://app');
+          } else {
+            swal(`Recharge failed , Try Again Later!!!!`)
+            swal({
+              title: "Sorry!",
+              text: `your amount of Rs.${amountUser} has been Failed added.`,
+              icon: "danger",
+              button: "Ok",
+            });
+            window.location.replace('igotaxi://app')
+          }
+        })
+          .catch(function (error) {
+            console.log(error);
+            if (error.response) {
+              swal(error?.response?.message ? error?.response?.message : "server error" )
+            }
+          })
       },
       prefill: {
-        name: userDetails[0].username,
-        email: userDetails[0].email_id,
-        contact: userDetails[0].mobile,
+        name: username,
+        email: email_id,
+        contact:mobile,
       },
       notes: {
-        address: userDetails[0].address,
+        address:address,
       },
       theme: {
         color: "#ce3232",
