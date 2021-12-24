@@ -558,17 +558,11 @@ class AddTrips extends React.Component {
     formData.append("parking", parking.value == undefined ? 0 : parking.value);
     formData.append("permit", permit.value == undefined ? 0 : permit.value);
 
-
-
-    console.log([...formData],newcustomer);
+    //  console.log([...formData],newcustomer);
     try {
-
-      const result = null
-      
-      //await Bridge.Addtrips(newcustomer, formData)
-
+      const result = await Bridge.Addtrips(newcustomer,formData);
       if (result) {
-        console.log(result);
+        // console.log(result);
         this.setState({
           selectedDropLocationOption: {},
           selectedPickupLocationOption: {},
